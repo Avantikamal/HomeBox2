@@ -75,6 +75,8 @@ Future<bool> loginUser(String phone, BuildContext context) {
 TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 
+import 'Dashboard.dart';
+
 class Login extends StatefulWidget {
   @override
   _Login createState() => _Login();
@@ -145,12 +147,43 @@ class _Login extends State<Login> {
                                         SizedBox(
                                           height: 40,
                                         ),
+<<<<<<< HEAD
                                         RaisedButton(onPressed: (){
                                           var phone = _phoneController.text;
                                           loginUser(phone, context);
                                         },
                                         child:Text("Submit"))
                                         
+=======
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Dashboard()));
+                                          },
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.pink,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              height: 40,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
+                                              child: Center(
+                                                  child: Text(
+                                                "Submit",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                              ))),
+                                        )
+>>>>>>> d0de69cc7f3064fe02b284dc69a2f970440ab5fe
                                       ],
                                     ),
                                   ))))))

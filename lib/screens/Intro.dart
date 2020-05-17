@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Login.dart';
+<<<<<<< HEAD
 import 'package:homebox/screens/cechkz.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+=======
+import 'package:intro_slider/dot_animation_enum.dart';
+import 'package:intro_slider/intro_slider.dart';
+import 'package:intro_slider/slide_object.dart';
+>>>>>>> d0de69cc7f3064fe02b284dc69a2f970440ab5fe
 
 class Intro extends StatefulWidget {
   @override
