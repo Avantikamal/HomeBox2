@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Login.dart';
-import 'package:intro_slider/dot_animation_enum.dart';
+import 'package:homebox/screens/cechkz.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:intro_slider/dot_animation_enum.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Intro extends StatefulWidget {
   @override
   _Intro createState() => _Intro();
 }
 
+final auth = FirebaseAuth.instance;
+// final reference = FirebaseDatabase.instance.reference();
+
 class _Intro extends State<Intro> {
+
+void check() {
+    auth.currentUser().then((value) {
+      if (value != null) {
+          Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => exeute()),
+                (_) => false);
+      } else {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) =>Login()),
+            (_) => false);
+      }
+    });
+  }
+
   List<Slide> slides = new List();
   Function goToTab;
   @override
@@ -68,8 +90,7 @@ class _Intro extends State<Intro> {
   Widget renderDoneBtn() {
     return GestureDetector(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Login()));
+        check();
         },
         child: Text("Done"));
   }

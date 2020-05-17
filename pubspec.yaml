@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_spinkit:
+  firebase_auth: ^0.14.0+5
   intro_slider: ^2.3.1
   dynamic_theme: ^1.0.0
   font_awesome_flutter:
@@ -74,16 +75,16 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: fonts/Poppins-Regular.ttf
-        - asset: fonts/Poppins-Medium.ttf
-        - asset: fonts/Poppins-Bold.ttf
-          weight: 700
-    - family: Pacifico
-      fonts:
-        - asset: fonts/Pacifico.ttf
-    - family: Fryo
-      fonts:
-        - asset: fonts/Fryo.ttf
+  # fonts:
+  #   - family: Poppins
+  #     fonts:
+  #       - asset: fonts/Poppins-Regular.ttf
+  #       - asset: fonts/Poppins-Medium.ttf
+  #       - asset: fonts/Poppins-Bold.ttf
+  #         weight: 700
+  #   - family: Pacifico
+  #     fonts:
+  #       - asset: fonts/Pacifico.ttf
+  #   - family: Fryo
+  #     fonts:
+  #       - asset: fonts/Fryo.ttf
