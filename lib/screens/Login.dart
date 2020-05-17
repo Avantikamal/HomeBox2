@@ -10,9 +10,9 @@ Future<bool> loginUser(String phone, BuildContext context) {
       timeout: Duration(seconds: 60),
       verificationCompleted: (AuthCredential credential) async {
         Navigator.of(context).pop();
-        AuthResult result = await _auth.signInWithCredential(credential);
+        // AuthResult result = await _auth.signInWithCredential(credential);
 
-        FirebaseUser user = result.user;
+        // FirebaseUser user = result.user;
 
         // if (user != null) {
         //   Navigator.push(
@@ -101,8 +101,8 @@ class _Login extends State<Login> {
               ),
               Center(
                   child: Container(
-                      padding: EdgeInsets.only(top: 20),
-                      height: MediaQuery.of(context).size.height / 1.7,
+                      padding: EdgeInsets.only(top: 40),
+                      height: MediaQuery.of(context).size.height / 2.5,
                       width: MediaQuery.of(context).size.width - 60,
                       child: Card(
                           shape: RoundedRectangleBorder(
@@ -121,15 +121,18 @@ class _Login extends State<Login> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Image(
-                                            image: AssetImage(
-                                                'assets/logo/user.png')),
-                                        SizedBox(height: 50),
                                         TextFormField(
                                           decoration: InputDecoration(
                                               icon: new Icon(Icons.text_fields),
                                               border: InputBorder.none,
                                               hintText: 'Enter Your Name'),
+                                        ),
+                                        SizedBox(height: 10),
+                                        TextFormField(
+                                          decoration: InputDecoration(
+                                              icon: new Icon(Icons.home),
+                                              border: InputBorder.none,
+                                              hintText: 'Enter Your Address'),
                                         ),
                                         SizedBox(height: 10),
                                         TextField(
@@ -141,28 +144,20 @@ class _Login extends State<Login> {
                                               hintText: 'Enter Your Number'),
                                         ),
                                         SizedBox(
-                                          height: 40,
+                                          height: 30,
                                         ),
-                                        RaisedButton(
-                                            onPressed: () {
-                                              var phone = _phoneController.text;
-                                              loginUser(phone, context);
-                                            },
-                                            child: Text("Submit")),
                                         GestureDetector(
                                           onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) =>
-                                            //             Dashboard()));
+                                            var phone = _phoneController.text;
+                                            loginUser(phone, context);
+                                            _phoneController.clear();
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
                                                   color: Colors.pink,
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          10)),
+                                                          40)),
                                               height: 40,
                                               width: MediaQuery.of(context)
                                                       .size

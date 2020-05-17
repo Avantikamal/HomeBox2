@@ -5,9 +5,6 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intro_slider/dot_animation_enum.dart';
-import 'package:intro_slider/intro_slider.dart';
-import 'package:intro_slider/slide_object.dart';
 
 class Intro extends StatefulWidget {
   @override
