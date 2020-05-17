@@ -40,27 +40,31 @@ Future<bool> loginUser(String phone, BuildContext context) {
                   ],
                 ),
                 actions: <Widget>[
-                  FlatButton(
-                    child: Text("Confirm"),
+                  RaisedButton(
+                    elevation: 10,
+                    child: Text("Ok"),
                     textColor: Colors.white,
                     color: Colors.blue,
                     onPressed: () async {
                       final code = _codeController.text.trim();
-                      AuthCredential credential =
-                          PhoneAuthProvider.getCredential(
-                              verificationId: verificationId, smsCode: code);
+                        AuthCredential credential =
+                            PhoneAuthProvider.getCredential(
+                                verificationId: verificationId, smsCode: code);
 
-                      AuthResult result =
-                          await _auth.signInWithCredential(credential);
+                        AuthResult result =
+                            await _auth.signInWithCredential(credential);
 
-                      FirebaseUser user = result.user;
+                        FirebaseUser user = result.user;
 
-                      if (user != null) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => exeute()));
-                      } else {
-                        print("Error");
-                      }
+                        if (user != null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => exeute()));
+                        } else {
+                          print("Error");
+                        }
+                      
                     },
                   )
                 ],
