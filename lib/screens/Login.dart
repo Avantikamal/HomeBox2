@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:homebox/screens/cechkz.dart';
 
 Future<bool> loginUser(String phone, BuildContext context) {
   FirebaseAuth _auth = FirebaseAuth.instance;
