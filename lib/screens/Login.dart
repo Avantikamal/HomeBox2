@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'cechkz.dart';
 
 Future<bool> loginUser(String phone, BuildContext context) {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -55,10 +56,8 @@ Future<bool> loginUser(String phone, BuildContext context) {
                       FirebaseUser user = result.user;
 
                       if (user != null) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => exeute()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => exeute()));
                       } else {
                         print("Error");
                       }
@@ -73,8 +72,6 @@ Future<bool> loginUser(String phone, BuildContext context) {
 
 TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
-
-import 'Dashboard.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -146,21 +143,19 @@ class _Login extends State<Login> {
                                         SizedBox(
                                           height: 40,
                                         ),
-<<<<<<< HEAD
-                                        RaisedButton(onPressed: (){
-                                          var phone = _phoneController.text;
-                                          loginUser(phone, context);
-                                        },
-                                        child:Text("Submit"))
-                                        
-=======
+                                        RaisedButton(
+                                            onPressed: () {
+                                              var phone = _phoneController.text;
+                                              loginUser(phone, context);
+                                            },
+                                            child: Text("Submit")),
                                         GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Dashboard()));
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             Dashboard()));
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
@@ -182,7 +177,6 @@ class _Login extends State<Login> {
                                                     fontSize: 15),
                                               ))),
                                         )
->>>>>>> d0de69cc7f3064fe02b284dc69a2f970440ab5fe
                                       ],
                                     ),
                                   ))))))

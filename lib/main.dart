@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:homebox/screens/Dashboard.dart';
+// import 'package:homebox/screens/Dashboard.dart';
 import 'package:homebox/screens/Intro.dart';
 import 'package:homebox/screens/splash.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => Intro(),
-        '/Dashboard': (BuildContext context) => Dashboard()
+        // '/Dashboard': (BuildContext context) => Dashboard()
       },
     );
   }
