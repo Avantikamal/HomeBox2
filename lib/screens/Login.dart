@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Dashboard.dart';
+
 class Login extends StatefulWidget {
   @override
   _Login createState() => _Login();
@@ -72,7 +74,11 @@ class _Login extends State<Login> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Dashboard()));
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(

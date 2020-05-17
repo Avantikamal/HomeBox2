@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Login.dart';
+import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:intro_slider/dot_animation_enum.dart';
 
 class Intro extends StatefulWidget {
   @override
