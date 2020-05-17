@@ -1,4 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:homebox/screens/cechkz.dart';
+
+Future<bool> loginUser(String phone, BuildContext context) {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  _auth.verifyPhoneNumber(
+      phoneNumber: phone,
+      timeout: Duration(seconds: 60),
+      verificationCompleted: (AuthCredential credential) async {
+        Navigator.of(context).pop();
+        AuthResult result = await _auth.signInWithCredential(credential);
+
+        FirebaseUser user = result.user;
+
+        // if (user != null) {
+        //   Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => (HomeScreen())));
+        // } else {
+        //   print("Error");
+        // }
+      },
+      verificationFailed: (AuthException exception) {
+        print(exception);
+      },
+      codeSent: (String verificationId, [int forceResendingToken]) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Give the code?"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    TextField(
+                      controller: _codeController,
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("Confirm"),
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    onPressed: () async {
+                      final code = _codeController.text.trim();
+                      AuthCredential credential =
+                          PhoneAuthProvider.getCredential(
+                              verificationId: verificationId, smsCode: code);
+
+                      AuthResult result =
+                          await _auth.signInWithCredential(credential);
+
+                      FirebaseUser user = result.user;
+
+                      if (user != null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => exeute()));
+                      } else {
+                        print("Error");
+                      }
+                    },
+                  )
+                ],
+              );
+            });
+      },
+      codeAutoRetrievalTimeout: null);
+}
+
+TextEditingController _codeController = new TextEditingController();
+TextEditingController _phoneController = new TextEditingController();
 
 class Login extends StatefulWidget {
   @override
@@ -60,7 +135,7 @@ class _Login extends State<Login> {
                                         ),
                                         SizedBox(height: 10),
                                         TextField(
-                                          keyboardType: TextInputType.number,
+                                          controller: _phoneController,
                                           decoration: InputDecoration(
                                               icon: new Icon(
                                                   Icons.format_list_numbered),
@@ -70,30 +145,12 @@ class _Login extends State<Login> {
                                         SizedBox(
                                           height: 40,
                                         ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            
-                                          },
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.pink,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                              height: 40,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2,
-                                              child: Center(
-                                                  child: Text(
-                                                "Submit",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ))),
-                                        )
+                                        RaisedButton(onPressed: (){
+                                          var phone = _phoneController.text;
+                                          loginUser(phone, context);
+                                        },
+                                        child:Text("Submit"))
+                                        
                                       ],
                                     ),
                                   ))))))
