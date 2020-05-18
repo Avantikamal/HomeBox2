@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Intro.dart';
-import 'package:homebox/screens/Login.dart';
-import 'package:homebox/screens/bottomNavBar.dart';
 import 'package:homebox/screens/splash.dart';
 
 void main() => runApp(MyApp());
@@ -11,8 +9,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        primaryColor: Colors.white,
+        accentColor: Colors.teal,
+        primarySwatch: Colors.teal,
+      ),
+      darkTheme: ThemeData(
+        primaryColor: Colors.black,
+        accentColor: Colors.blueGrey,
+        primarySwatch: Colors.blue,
+      ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
