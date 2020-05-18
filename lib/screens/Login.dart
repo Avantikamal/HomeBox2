@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'cechkz.dart';
+import 'package:homebox/screens/bottomNavBar.dart';
 
 Future<bool> loginUser(String phone, BuildContext context) {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -60,7 +60,7 @@ Future<bool> loginUser(String phone, BuildContext context) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => exeute()));
+                                  builder: (context) => BottomBar()));
                         } else {
                           print("Error");
                         }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:homebox/screens/Dashboard.dart';
 import 'package:homebox/screens/Login.dart';
-import 'package:homebox/screens/cechkz.dart';
+import 'package:homebox/screens/bottomNavBar.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
@@ -21,7 +22,7 @@ void check() {
       if (value != null) {
           Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => exeute()),
+                MaterialPageRoute(builder: (context) => BottomBar()),
                 (_) => false);
       } else {
         Navigator.pushAndRemoveUntil(

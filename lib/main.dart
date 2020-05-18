@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Intro.dart';
 import 'package:homebox/screens/Login.dart';
+import 'package:homebox/screens/bottomNavBar.dart';
 import 'package:homebox/screens/splash.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
-        '/HomeScreen': (BuildContext context) => Login(),
+        '/HomeScreen': (BuildContext context) => Intro(),
         // '/Dashboard': (BuildContext context) => Dashboard()
       },
     );

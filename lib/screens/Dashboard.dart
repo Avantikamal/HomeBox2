@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Dashboard extends StatefulWidget {
@@ -13,6 +14,8 @@ class _DashboardState extends State<Dashboard> {
     FontAwesomeIcons.ccDinersClub,
     FontAwesomeIcons.coffee,
     FontAwesomeIcons.iceCream,
+    FontAwesomeIcons.oilCan,
+    FontAwesomeIcons.brush,
     Icons.fastfood
   ];
 
@@ -59,9 +62,18 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: <Widget>[
-            SizedBox(
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                "All Catagories",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
               height: 80.0,
               child: Row(
                 children: <Widget>[
@@ -78,234 +90,87 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Frequently Used Products:",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      fontFamily: 'Poppins'),
+                )),
+            SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10),
               child: Container(
                 // ignore: unrelated_type_equality_checks
                 height: 250.0,
-                child: Row(
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    Card(
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
                       color: ThemeMode.dark == true
                           ? Theme.of(context).primaryColor
                           : Theme.of(context).primaryColorDark,
-                      child: Stack(
-                        alignment: Alignment.topCenter,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          //container for data
-                          Positioned(
-                            bottom: 10.0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              height: 250.0,
-                              width: 200.0,
-                              child: Column(
-                                children: <Widget>[
-                                  //name and price of the product
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                          'Bread',
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10.0),
-                                        child: Text('₹40.0'),
-                                      ),
-                                    ],
-                                  ),
-                                  //Vendors who deliver
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(''),
-                                      ],
-                                    ),
-                                  ),
-                                  //Add to Box Button
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Center(
-                                          child: SizedBox(
-                                            height: 40,
-                                            width: 110,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(20.0),
-                                              child: MaterialButton(
-                                                color: Colors.blueGrey,
-                                                child: Text(
-                                                  'ADD TO BOX',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Poppins'),
-                                                ),
-                                                elevation: 8.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                ),
-                                                padding: EdgeInsets.all(10.0),
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          Container(
+                              height: 140,
+                              child: Center(
+                                  child: Card(
+                                elevation: 10,
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child:
+                                        Image.asset('assets/logo/bread.png')),
+                              ))),
+                          SizedBox(height: 3),
+                          Text(
+                            "Bread",
+                            style:
+                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
                           ),
-                          //image of the product
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              height: 250,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Image.network(
-                                'https://pngimage.net/wp-content/uploads/2018/05/bread-loaf-png.png',
-                              ),
-                            ),
-                          ),
+                          Text(
+                            "Rs.20.00",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )
                         ],
                       ),
                     ),
-                    Card(
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
                       color: ThemeMode.dark == true
                           ? Theme.of(context).primaryColor
                           : Theme.of(context).primaryColorDark,
-                      child: Stack(
-                        alignment: Alignment.topCenter,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          //container for data
-                          Positioned(
-                            bottom: 10.0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              height: 250.0,
-                              width: 200.0,
-                              child: Column(
-                                children: <Widget>[
-                                  //name and price of the product
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                          'Bread',
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10.0),
-                                        child: Text('₹40.0'),
-                                      ),
-                                    ],
-                                  ),
-                                  //Vendors who deliver
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(''),
-                                      ],
-                                    ),
-                                  ),
-                                  //Add to Box Button
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Center(
-                                          child: SizedBox(
-                                            height: 40,
-                                            width: 110,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(20.0),
-                                              child: MaterialButton(
-                                                color: Colors.blueGrey,
-                                                child: Text(
-                                                  'ADD TO BOX',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Poppins'),
-                                                ),
-                                                elevation: 8.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                ),
-                                                padding: EdgeInsets.all(10.0),
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          Container(
+                              height: 140,
+                              child: Center(
+                                  child: Card(
+                                elevation: 10,
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child: Image.asset('assets/logo/milk.png')),
+                              ))),
+                          SizedBox(height: 3),
+                          Text(
+                            "Milk",
+                            style:
+                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
                           ),
-                          //image of the product
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              height: 250,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Image.network(
-                                'https://pngimage.net/wp-content/uploads/2018/05/bread-loaf-png.png',
-                              ),
-                            ),
+                          Text(
+                            "Rs.30.00/Lit.",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ],
                       ),
@@ -315,95 +180,85 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Top Rated Products:",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontFamily: 'Poppins'),
+                )),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 10),
               child: Container(
+                // ignore: unrelated_type_equality_checks
                 height: 250.0,
-                child: Row(
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    Card(
-                      // ignore: unrelated_type_equality_checks
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
                       color: ThemeMode.dark == true
                           ? Theme.of(context).primaryColor
                           : Theme.of(context).primaryColorDark,
-                      child: Stack(
-                        alignment: Alignment.topCenter,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          //container for data
                           Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            height: 250.0,
-                            width: 200.0,
-                            child: Column(
-                              children: <Widget>[
-                                //Add to Box Button
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50.0, vertical: 10.0),
-                                  child: SizedBox(
-                                    height: 40,
-                                    width: 110,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: MaterialButton(
-                                        color: Colors.blueGrey,
-                                        child: Text(
-                                          'ADD TO BOX',
-                                          style:
-                                              TextStyle(fontFamily: 'Poppins'),
-                                        ),
-                                        elevation: 8.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        padding: EdgeInsets.all(10.0),
-                                        onPressed: () {},
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                //name and price of the product
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Text(
-                                        'Amul Taza Toned Milk',
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Text('₹20.0'),
-                                    ),
-                                  ],
-                                ),
-                                //Vendors who deliver
-                                Text(''),
-                              ],
-                            ),
+                              height: 140,
+                              child: Center(
+                                  child: Card(
+                                elevation: 10,
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child:
+                                        Image.asset('assets/logo/tomato.png')),
+                              ))),
+                          SizedBox(height: 3),
+                          Text(
+                            "Vegetables",
+                            style:
+                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
                           ),
-                          //image of the product
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              height: 250,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Image.network(
-                                'https://pngimage.net/wp-content/uploads/2018/05/amul-milk-png-3.png',
-                              ),
-                            ),
+                          Text(
+                            "Rs.20.00/Kg.",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      color: ThemeMode.dark == true
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).primaryColorDark,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                              height: 140,
+                              child: Center(
+                                  child: Card(
+                                elevation: 10,
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child:
+                                        Image.asset('assets/logo/sugar.png')),
+                              ))),
+                          SizedBox(height: 3),
+                          Text(
+                            "Sugar",
+                            style:
+                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            "Rs.30.00/Kg.",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ],
                       ),
