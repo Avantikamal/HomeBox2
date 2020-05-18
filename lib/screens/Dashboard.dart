@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homebox/screens/AllCatagory.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -67,9 +68,31 @@ class _DashboardState extends State<Dashboard> {
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(left: 10),
-              child: Text(
-                "All Catagories",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              child: Stack(
+                children: <Widget>[
+                  Text(
+                    "All Catagories",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllCatagory()));
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Align(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "View All >>",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.green),
+                              ))))
+                ],
               ),
             ),
             SizedBox(height: 10),
