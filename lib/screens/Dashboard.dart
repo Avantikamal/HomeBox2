@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+<<<<<<< HEAD
 import 'package:homebox/screens/AllCatagory.dart';
+=======
+import 'package:homebox/Shared/Modal.dart';
+>>>>>>> master
 
 class Dashboard extends StatefulWidget {
   @override
@@ -62,12 +66,46 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                'Our Vendors',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Organic Farms',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+            Divider(
+              thickness: 1.0,
+            ),
+            ListTile(
+              title: Text(
+                'Deals Of The Day',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           children: <Widget>[
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(left: 10),
+<<<<<<< HEAD
               child: Stack(
                 children: <Widget>[
                   Text(
@@ -93,6 +131,15 @@ class _DashboardState extends State<Dashboard> {
                                     color: Colors.green),
                               ))))
                 ],
+=======
+              child: Text(
+                "All Catagories",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  fontFamily: 'Poppins',
+                ),
+>>>>>>> master
               ),
             ),
             SizedBox(height: 10),
@@ -133,69 +180,87 @@ class _DashboardState extends State<Dashboard> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      color: ThemeMode.dark == true
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).primaryColorDark,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                              height: 140,
-                              child: Center(
-                                  child: Card(
-                                elevation: 10,
-                                color: Colors.white,
-                                child: Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child:
-                                        Image.asset('assets/logo/bread.png')),
-                              ))),
-                          SizedBox(height: 3),
-                          Text(
-                            "Bread",
-                            style:
-                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
-                          ),
-                          Text(
-                            "Rs.20.00",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          settingModalBottomSheet(
+                              context,
+                              'assets/logo/bread.png',
+                              'Rs. 40.0',
+                              'Bread',
+                              ['xyz', 'pqr', 'abc', 'agisug', 'gid7w']);
+                        });
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        color: ThemeMode.dark == true
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorDark,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                height: 140,
+                                child: Center(
+                                    child: Card(
+                                  elevation: 10,
+                                  color: Colors.white,
+                                  child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child:
+                                          Image.asset('assets/logo/bread.png')),
+                                ))),
+                            SizedBox(height: 3),
+                            Text(
+                              "Bread",
+                              style: TextStyle(
+                                  fontSize: 30, fontFamily: 'Poppins'),
+                            ),
+                            Text(
+                              "Rs.20.00",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      color: ThemeMode.dark == true
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).primaryColorDark,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                              height: 140,
-                              child: Center(
-                                  child: Card(
-                                elevation: 10,
-                                color: Colors.white,
-                                child: Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: Image.asset('assets/logo/milk.png')),
-                              ))),
-                          SizedBox(height: 3),
-                          Text(
-                            "Milk",
-                            style:
-                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
-                          ),
-                          Text(
-                            "Rs.30.00/Lit.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {});
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        color: ThemeMode.dark == true
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorDark,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                height: 140,
+                                child: Center(
+                                    child: Card(
+                                  elevation: 10,
+                                  color: Colors.white,
+                                  child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child:
+                                          Image.asset('assets/logo/milk.png')),
+                                ))),
+                            SizedBox(height: 3),
+                            Text(
+                              "Milk",
+                              style: TextStyle(
+                                  fontSize: 30, fontFamily: 'Poppins'),
+                            ),
+                            Text(
+                              "Rs.30.00/Lit.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -220,70 +285,80 @@ class _DashboardState extends State<Dashboard> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      color: ThemeMode.dark == true
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).primaryColorDark,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                              height: 140,
-                              child: Center(
-                                  child: Card(
-                                elevation: 10,
-                                color: Colors.white,
-                                child: Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child:
-                                        Image.asset('assets/logo/tomato.png')),
-                              ))),
-                          SizedBox(height: 3),
-                          Text(
-                            "Vegetables",
-                            style:
-                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
-                          ),
-                          Text(
-                            "Rs.20.00/Kg.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {});
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        color: ThemeMode.dark == true
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorDark,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                height: 140,
+                                child: Center(
+                                    child: Card(
+                                  elevation: 10,
+                                  color: Colors.white,
+                                  child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: Image.asset(
+                                          'assets/logo/tomato.png')),
+                                ))),
+                            SizedBox(height: 3),
+                            Text(
+                              "Vegetables",
+                              style: TextStyle(
+                                  fontSize: 30, fontFamily: 'Poppins'),
+                            ),
+                            Text(
+                              "Rs.20.00/Kg.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      color: ThemeMode.dark == true
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).primaryColorDark,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                              height: 140,
-                              child: Center(
-                                  child: Card(
-                                elevation: 10,
-                                color: Colors.white,
-                                child: Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child:
-                                        Image.asset('assets/logo/sugar.png')),
-                              ))),
-                          SizedBox(height: 3),
-                          Text(
-                            "Sugar",
-                            style:
-                                TextStyle(fontSize: 30, fontFamily: 'Poppins'),
-                          ),
-                          Text(
-                            "Rs.30.00/Kg.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {});
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        color: ThemeMode.dark == true
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorDark,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                height: 140,
+                                child: Center(
+                                    child: Card(
+                                  elevation: 10,
+                                  color: Colors.white,
+                                  child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child:
+                                          Image.asset('assets/logo/sugar.png')),
+                                ))),
+                            SizedBox(height: 3),
+                            Text(
+                              "Sugar",
+                              style: TextStyle(
+                                  fontSize: 30, fontFamily: 'Poppins'),
+                            ),
+                            Text(
+                              "Rs.30.00/Kg.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
