@@ -12,7 +12,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBar extends State<BottomBar> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOption = [Dashboard(), AddBox(), Setting()];
+  List<Widget> _widgetOption = [Dashboard(), AddBox(), Setting(),Setting(),Setting()];
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,10 @@ class _BottomBar extends State<BottomBar> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
-                  gap: 8,
+                  gap: 6,
                   activeColor: Colors.white,
                   iconSize: 24,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   duration: Duration(milliseconds: 800),
                   tabBackgroundColor: Colors.grey[800],
                   tabs: [
@@ -43,8 +43,12 @@ class _BottomBar extends State<BottomBar> {
                       text: 'My Box',
                     ),
                     GButton(
-                      icon: LineIcons.refresh,
-                      text: 'Setting',
+                      icon: LineIcons.phone,
+                      text: 'Contact Us',
+                    ),
+                    GButton(
+                      icon: LineIcons.list,
+                      text: 'My Orders',
                     ),
                   ],
                   selectedIndex: _selectedIndex,

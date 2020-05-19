@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homebox/screens/AllCatagory.dart';
 import 'package:homebox/Shared/Modal.dart';
 
 class Dashboard extends StatefulWidget {
@@ -101,14 +102,32 @@ class _DashboardState extends State<Dashboard> {
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(left: 10),
-              child: Text(
-                "All Catagories",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                  fontFamily: 'Poppins',
-                ),
-              ),
+              child: Stack(
+                children: <Widget>[
+                  Text(
+                    "All Catagories",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllCatagory()));
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Align(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "View All >>",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.green),
+                              ))))
+                ],),
+                
             ),
             SizedBox(height: 10),
             Container(
@@ -176,7 +195,9 @@ class _DashboardState extends State<Dashboard> {
                                   child: Padding(
                                       padding: EdgeInsets.all(20),
                                       child:
-                                          Image.asset('assets/logo/bread.png')),
+                                          // Image.asset('assets/logo/bread.png')
+                                          Image.network('http://pngimg.com/uploads/bread/bread_PNG2324.png')
+                                          ),
                                 ))),
                             SizedBox(height: 3),
                             Text(

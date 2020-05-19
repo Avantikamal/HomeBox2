@@ -47,24 +47,23 @@ Future<bool> loginUser(String phone, BuildContext context) {
                     color: Colors.blue,
                     onPressed: () async {
                       final code = _codeController.text.trim();
-                        AuthCredential credential =
-                            PhoneAuthProvider.getCredential(
-                                verificationId: verificationId, smsCode: code);
+                      AuthCredential credential =
+                          PhoneAuthProvider.getCredential(
+                              verificationId: verificationId, smsCode: code);
 
-                        AuthResult result =
-                            await _auth.signInWithCredential(credential);
+                      AuthResult result =
+                          await _auth.signInWithCredential(credential);
 
-                        FirebaseUser user = result.user;
+                      FirebaseUser user = result.user;
 
-                        if (user != null) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BottomBar()));
-                        } else {
-                          print("Error");
-                        }
-                      
+                      if (user != null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BottomBar()));
+                      } else {
+                        print("Error");
+                      }
                     },
                   )
                 ],
@@ -83,6 +82,8 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  List<String> _locations = ['Vadodra','Bhavnagar','Hajipur'];
+  String _selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +107,7 @@ class _Login extends State<Login> {
               Center(
                   child: Container(
                       padding: EdgeInsets.only(top: 40),
-                      height: MediaQuery.of(context).size.height / 2.5,
+                      height: MediaQuery.of(context).size.height / 2,
                       width: MediaQuery.of(context).size.width - 60,
                       child: Card(
                           shape: RoundedRectangleBorder(
@@ -148,8 +149,27 @@ class _Login extends State<Login> {
                                               hintText: 'Enter Your Number'),
                                         ),
                                         SizedBox(
-                                          height: 30,
+                                          height: 5,
                                         ),
+                                        Center(
+                                          child: DropdownButton(
+                                            hint: Text(
+                                                'Please choose a location'), // Not necessary for Option 1
+                                            value: _selectedLocation,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _selectedLocation = newValue;
+                                              });
+                                            },
+                                            items: _locations.map((location) {
+                                              return DropdownMenuItem(
+                                                child: new Text(location),
+                                                value: location,
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        SizedBox(height:20),
                                         GestureDetector(
                                           onTap: () {
                                             var phone = _phoneController.text;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homebox/screens/Vendors.dart';
 
 Container detailsContainer(BuildContext context, img, price, name, vendors) {
   return Container(
@@ -9,7 +10,7 @@ Container detailsContainer(BuildContext context, img, price, name, vendors) {
       children: <Widget>[
         Center(child: Image.asset('$img')),
         SizedBox(
-          height: 10.0,
+          height: 0.0,
         ),
         Center(
           child: Row(
@@ -26,24 +27,25 @@ Container detailsContainer(BuildContext context, img, price, name, vendors) {
             ],
           ),
         ),
-        SizedBox(
-          height: 10.0,
-        ),
-        SizedBox(
-          height: 20.0,
-          child: Row(
-            children: <Widget>[
-              Text(
-                '$vendors',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 14.0,
-                  color: Colors.white30,
-                ),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Vendor()));
+            },
+            child: SizedBox(
+              height: 40.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Vendors...',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 20.0,
+                        color: Colors.green,
+                      ))
+                ],
               ),
-            ],
-          ),
-        ),
+            )),
       ],
     ),
   );
