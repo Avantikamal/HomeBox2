@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:homebox/screens/Dashboard.dart';
+import 'package:homebox/Vendor%20Part/bottomBar.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
 
 TextEditingController _codeController = new TextEditingController();
@@ -301,7 +300,7 @@ Widget otpPage(BuildContext context, String verificationId) {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => BottomBar()),
+                                    builder: (context) => BottomBarVendor()),
                                 (route) => false);
                           });
                           // Firestore.instance

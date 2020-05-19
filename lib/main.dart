@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homebox/Vendor%20Part/bottomBar.dart';
 import 'package:homebox/screens/Intro.dart';
 import 'package:homebox/screens/splash.dart';
 
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home:BottomBarVendor(),
+      home:SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => Intro(),
       },
