@@ -10,6 +10,8 @@ TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
+TextEditingController _keyController = new TextEditingController();
+String key = "homebox";
 
 class Login extends StatefulWidget {
   @override
@@ -81,6 +83,15 @@ class _Login extends State<Login> {
                                               border: InputBorder.none,
                                               hintText: 'Enter Your Number'),
                                         ),
+                                        SizedBox(height: 10),
+                                        TextField(
+                                          maxLength: 10,
+                                          controller: _keyController,
+                                          decoration: InputDecoration(
+                                              icon: new Icon(Icons.vpn_key),
+                                              border: InputBorder.none,
+                                              hintText: 'Enter Your Unique ID'),
+                                        ),
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -109,7 +120,8 @@ class _Login extends State<Login> {
                                             if (_phoneController.text.length ==
                                                     10 ||
                                                 _name.text != null &&
-                                                    _name.text != "") {
+                                                    _name.text != "" ||
+                                                key == _keyController.text) {
                                               _auth.verifyPhoneNumber(
                                                   phoneNumber: "+91" +
                                                       _phoneController.text,
@@ -134,7 +146,7 @@ class _Login extends State<Login> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                       content: Text(
-                                                          "One or More options are missing"),
+                                                          "One or More options are missing Or Key is invalid"),
                                                       actions: <Widget>[
                                                         GestureDetector(
                                                           onTap: () {
