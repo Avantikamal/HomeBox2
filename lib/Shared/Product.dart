@@ -41,7 +41,7 @@ Container detailsContainer(BuildContext context, img, price, name, vendors) {
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 20.0,
-                        color: Colors.green,
+                        color: Color(0xff61ce70),
                       ))
                 ],
               ),

@@ -11,20 +11,17 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.white,
-        accentColor: Colors.teal,
-        primarySwatch: Colors.teal,
+        accentColor: Color(0xff61ce70),
       ),
       darkTheme: ThemeData(
         primaryColor: Colors.black,
-        accentColor: Colors.teal,
-        primarySwatch: Colors.blue,
+        accentColor: Color(0xff61ce70),
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => Intro(),
-        // '/Dashboard': (BuildContext context) => Dashboard()
       },
     );
   }

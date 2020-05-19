@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
 
 Future<bool> loginUser(String phone, BuildContext context) {
@@ -82,23 +82,24 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
-  List<String> _locations = ['Vadodra','Bhavnagar','Hajipur'];
+  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch'];
   String _selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: Colors.blueGrey,
+          color: Color(0xff61ce70),
           child: Stack(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     "\tLogin",
                     style: TextStyle(
                         color: Colors.black,
+                        fontFamily: 'Poppins',
                         fontSize: 50,
                         fontWeight: FontWeight.bold),
                   ),
@@ -133,13 +134,6 @@ class _Login extends State<Login> {
                                               hintText: 'Enter Your Name'),
                                         ),
                                         SizedBox(height: 10),
-                                        TextFormField(
-                                          decoration: InputDecoration(
-                                              icon: new Icon(Icons.home),
-                                              border: InputBorder.none,
-                                              hintText: 'Enter Your Address'),
-                                        ),
-                                        SizedBox(height: 10),
                                         TextField(
                                           controller: _phoneController,
                                           decoration: InputDecoration(
@@ -169,7 +163,7 @@ class _Login extends State<Login> {
                                             }).toList(),
                                           ),
                                         ),
-                                        SizedBox(height:20),
+                                        SizedBox(height: 20),
                                         GestureDetector(
                                           onTap: () {
                                             var phone = _phoneController.text;
@@ -178,7 +172,7 @@ class _Login extends State<Login> {
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.pink,
+                                                  color: Color(0xff61ce70),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           40)),
@@ -191,7 +185,8 @@ class _Login extends State<Login> {
                                                   child: Text(
                                                 "Submit",
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.black,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
                                               ))),
