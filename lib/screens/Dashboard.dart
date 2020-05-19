@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homebox/Shared/Modal.dart';
 import 'package:homebox/screens/AllCatagory.dart';
+import 'package:homebox/Shared/Modal.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -124,7 +124,7 @@ class _DashboardState extends State<Dashboard> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
-                                    color: Color(0xff61ce70)),
+                                    color: Colors.green),
                               ))))
                 ],
               ),
@@ -172,10 +172,9 @@ class _DashboardState extends State<Dashboard> {
                         setState(() {
                           settingModalBottomSheet(
                               context,
-                              'assets/logo/bread.png',
+                              'assets/images/bread.png',
                               'Rs. 40.0',
-                              'Bread',
-                              ['xyz', 'pqr', 'abc', 'agisug', 'gid7w']);
+                              'Bread',);
                         });
                       },
                       child: Container(
@@ -193,11 +192,9 @@ class _DashboardState extends State<Dashboard> {
                                   elevation: 10,
                                   color: Colors.white,
                                   child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child:
-                                          // Image.asset('assets/logo/bread.png')
-                                          Image.network(
-                                              'http://pngimg.com/uploads/bread/bread_PNG2324.png')),
+                                      padding: EdgeInsets.all(0),
+                                      child: Image.asset(
+                                          'assets/images/bread.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
@@ -233,9 +230,9 @@ class _DashboardState extends State<Dashboard> {
                                   elevation: 10,
                                   color: Colors.white,
                                   child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child:
-                                          Image.asset('assets/logo/milk.png')),
+                                      padding: EdgeInsets.all(0),
+                                      child: Image.asset(
+                                          'assets/images/amul.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
@@ -295,7 +292,7 @@ class _DashboardState extends State<Dashboard> {
                                   child: Padding(
                                       padding: EdgeInsets.all(20),
                                       child: Image.asset(
-                                          'assets/logo/tomato.png')),
+                                          'assets/images/vegetable.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
@@ -333,7 +330,7 @@ class _DashboardState extends State<Dashboard> {
                                   child: Padding(
                                       padding: EdgeInsets.all(20),
                                       child:
-                                          Image.asset('assets/logo/sugar.png')),
+                                          Image.asset('assets/images/sugar.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
