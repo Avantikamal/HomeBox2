@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _SplashScreen extends State<SplashScreen> {
   void navigationPage() {
     Navigator.of(context).pushReplacementNamed('/HomeScreen');
   }
+
   @override
   void initState() {
     super.initState();
@@ -26,17 +28,16 @@ class _SplashScreen extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.only(left:50,right:50,bottom:50),
+            padding: EdgeInsets.only(left: 50, right: 50, bottom: 50),
             child: Container(
+              color: Color(0xff61ce70),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/logo/splash.png'))),
+                      image: AssetImage('assets/logo/logo1.png'))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Center(
-                    child:SpinKitFadingCube(color: Colors.black)
-                  )
+                  Center(child: SpinKitFadingCube(color: Colors.black))
                 ],
               ),
             )));

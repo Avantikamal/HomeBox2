@@ -27,7 +27,7 @@ void settingModalBottomSheet(BuildContext context, img, price, name) {
                     // Navigator.of(context).dispose();
                   },
                 ),
-                color: Colors.pink,
+                color: Color(0xff61ce70),
               ),
             ],
           ),

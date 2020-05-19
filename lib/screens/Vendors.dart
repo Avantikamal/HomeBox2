@@ -68,7 +68,7 @@ final planetThumbnail = Container(
     margin: EdgeInsets.symmetric(vertical: 16.0),
     alignment: FractionalOffset.centerLeft,
     child: Container(
-      color: Colors.blue,
+      color: Color(0xff0eb33d),
       height: 100,
       width: 100,
     ));
