@@ -195,7 +195,9 @@ class _DashboardState extends State<Dashboard> {
                                   child: Padding(
                                       padding: EdgeInsets.all(20),
                                       child:
-                                          Image.asset('assets/logo/bread.png')),
+                                          // Image.asset('assets/logo/bread.png')
+                                          Image.network('http://pngimg.com/uploads/bread/bread_PNG2324.png')
+                                          ),
                                 ))),
                             SizedBox(height: 3),
                             Text(

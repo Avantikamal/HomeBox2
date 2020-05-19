@@ -12,7 +12,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBar extends State<BottomBar> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOption = [Dashboard(), AddBox(), Setting(), Setting(),Setting(),Setting()];
+  List<Widget> _widgetOption = [Dashboard(), AddBox(), Setting(),Setting(),Setting()];
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +41,6 @@ class _BottomBar extends State<BottomBar> {
                     GButton(
                       icon: LineIcons.shopping_cart,
                       text: 'My Box',
-                    ),
-                    GButton(
-                      icon: LineIcons.refresh,
-                      text: 'Setting',
                     ),
                     GButton(
                       icon: LineIcons.phone,

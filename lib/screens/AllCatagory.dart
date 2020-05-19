@@ -71,30 +71,32 @@ class _AllCatagory extends State<AllCatagory> {
                   ),
                 ),
                 SizedBox(height: 10),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: <Widget>[
-                //     FloatingActionButton(
-                //       onPressed: _previousImage,
-                //       backgroundColor: Colors.grey.shade100,
-                //       child: Center(
-                //           child: Icon(
-                //         Icons.arrow_back_ios,
-                //         color: Colors.black,
-                //       )),
-                //     ),
-                //     SizedBox(width: 10.0),
-                //     FloatingActionButton(
-                //       onPressed: _nextImage,
-                //       backgroundColor: Colors.grey.shade100,
-                //       child: Center(
-                //           child: Icon(
-                //         Icons.arrow_forward_ios,
-                //         color: Colors.black,
-                //       )),
-                //     ),
-                //   ],
-                // )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FloatingActionButton(
+                      heroTag: null,
+                      onPressed: _previousImage,
+                      backgroundColor: Colors.grey.shade100,
+                      child: Center(
+                          child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      )),
+                    ),
+                    SizedBox(width: 10.0),
+                    FloatingActionButton(
+                      heroTag: null,
+                      onPressed: _nextImage,
+                      backgroundColor: Colors.grey.shade100,
+                      child: Center(
+                          child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                      )),
+                    ),
+                  ],
+                )
               ],
             ),
             Row(

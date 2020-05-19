@@ -9,7 +9,7 @@ void settingModalBottomSheet(BuildContext context, img, price, name, vendors) {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          height: (MediaQuery.of(context).size.height / 2.15),
+          height: (MediaQuery.of(context).size.height),
           child: new Wrap(
             children: <Widget>[
               detailsContainer(context, '$img', '$price', '$name', '$vendors'),
@@ -24,7 +24,7 @@ void settingModalBottomSheet(BuildContext context, img, price, name, vendors) {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).dispose();
+                    // Navigator.of(context).dispose();
                   },
                 ),
                 color: Colors.pink,
