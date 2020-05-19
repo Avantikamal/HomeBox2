@@ -15,6 +15,17 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
+=======
+          "client_id": "543131972486-jubergpcfmu4sqoj2lv28lpnelr19k0i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.homebox",
+            "certificate_hash": "09160c8fc6ca858da90f5874e1b894bfcfe068fd"
+          }
+        },
+        {
+>>>>>>> 3b7c8c33dd4ff7636375b79304c5edd0d1737513
           "client_id": "543131972486-785d8rt6623tvb5o4khk6ga44q766mv2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

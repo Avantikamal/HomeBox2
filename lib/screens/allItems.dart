@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homebox/Shared/Modal.dart';
 import 'package:homebox/Shared/newModel.dart';
 
 Scaffold allItems(BuildContext context, name) {
