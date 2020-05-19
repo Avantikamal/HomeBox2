@@ -1,20 +1,17 @@
-<<<<<<< HEAD
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-=======
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:homebox/screens/Dashboard.dart';
->>>>>>> b9addb1da31d91196b75378937859252da945c73
 import 'package:homebox/screens/bottomNavBar.dart';
 
 TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
+TextEditingController _keyController = new TextEditingController();
+String key = "homebox";
 
 class Login extends StatefulWidget {
   @override
@@ -24,32 +21,23 @@ class Login extends StatefulWidget {
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class _Login extends State<Login> {
-<<<<<<< HEAD
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch'];
-=======
   List<String> _locations = ['Vadodra', 'Bhavnagar', 'Hajipur'];
->>>>>>> b9addb1da31d91196b75378937859252da945c73
   String _selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-<<<<<<< HEAD
-          color: Color(0xff61ce70),
-=======
           color: Color(0xFF61ce70),
->>>>>>> b9addb1da31d91196b75378937859252da945c73
           child: Stack(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Align(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topLeft,
                   child: Text(
                     "\tLogin",
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Poppins',
                         fontSize: 50,
                         fontWeight: FontWeight.bold),
                   ),
@@ -95,6 +83,15 @@ class _Login extends State<Login> {
                                               border: InputBorder.none,
                                               hintText: 'Enter Your Number'),
                                         ),
+                                        SizedBox(height: 10),
+                                        TextField(
+                                          maxLength: 10,
+                                          controller: _keyController,
+                                          decoration: InputDecoration(
+                                              icon: new Icon(Icons.vpn_key),
+                                              border: InputBorder.none,
+                                              hintText: 'Enter Your Unique ID'),
+                                        ),
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -123,7 +120,8 @@ class _Login extends State<Login> {
                                             if (_phoneController.text.length ==
                                                     10 ||
                                                 _name.text != null &&
-                                                    _name.text != "") {
+                                                    _name.text != "" ||
+                                                key == _keyController.text) {
                                               _auth.verifyPhoneNumber(
                                                   phoneNumber: "+91" +
                                                       _phoneController.text,
@@ -148,7 +146,7 @@ class _Login extends State<Login> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                       content: Text(
-                                                          "One or More options are missing"),
+                                                          "One or More options are missing Or Key is invalid"),
                                                       actions: <Widget>[
                                                         GestureDetector(
                                                           onTap: () {
@@ -164,7 +162,7 @@ class _Login extends State<Login> {
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
-                                                  color: Color(0xff61ce70),
+                                                  color: Colors.pink,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           40)),
@@ -177,8 +175,7 @@ class _Login extends State<Login> {
                                                   child: Text(
                                                 "Submit",
                                                 style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    color: Colors.black,
+                                                    color: Colors.white,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
                                               ))),
@@ -194,8 +191,8 @@ class _Login extends State<Login> {
 
 verificationCompleted(AuthCredential authCredential, BuildContext context) {
   _auth.signInWithCredential(authCredential).then((value) {
-    Firestore.instance.collection("users").document(value.user.uid).setData(
-        {"name": _name.text, "city": city, "type": "user"}).whenComplete(() {
+    Firestore.instance.collection("vendor").document(value.user.uid).setData(
+        {"name": _name.text, "city": city, "type": "vendor"}).whenComplete(() {
       Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(builder: (context) => BottomBar()),
@@ -294,12 +291,12 @@ Widget otpPage(BuildContext context, String verificationId) {
                             .signInWithCredential(credential)
                             .then((value) {
                           Firestore.instance
-                              .collection("users")
+                              .collection("vendor")
                               .document(value.user.uid)
                               .setData({
                             "name": _name.text,
                             "city": city,
-                            "type": "user"
+                            "type": "vendor"
                           }).whenComplete(() {
                             Navigator.pushAndRemoveUntil(
                                 context,
