@@ -111,9 +111,9 @@ class _DashboardState extends State<Dashboard> {
                   GestureDetector(
                       onTap: () {
                         Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllCatagory()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AllCatagory()));
                       },
                       child: Padding(
                           padding: EdgeInsets.only(right: 10),
@@ -126,8 +126,8 @@ class _DashboardState extends State<Dashboard> {
                                     fontSize: 15,
                                     color: Colors.green),
                               ))))
-                ],),
-                
+                ],
+              ),
             ),
             SizedBox(height: 10),
             Container(
@@ -172,10 +172,9 @@ class _DashboardState extends State<Dashboard> {
                         setState(() {
                           settingModalBottomSheet(
                               context,
-                              'assets/logo/bread.png',
+                              'assets/images/bread.png',
                               'Rs. 40.0',
-                              'Bread',
-                              ['xyz', 'pqr', 'abc', 'agisug', 'gid7w']);
+                              'Bread',);
                         });
                       },
                       child: Container(
@@ -193,11 +192,9 @@ class _DashboardState extends State<Dashboard> {
                                   elevation: 10,
                                   color: Colors.white,
                                   child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child:
-                                          // Image.asset('assets/logo/bread.png')
-                                          Image.network('http://pngimg.com/uploads/bread/bread_PNG2324.png')
-                                          ),
+                                      padding: EdgeInsets.all(0),
+                                      child: Image.asset(
+                                          'assets/images/bread.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
@@ -233,9 +230,9 @@ class _DashboardState extends State<Dashboard> {
                                   elevation: 10,
                                   color: Colors.white,
                                   child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child:
-                                          Image.asset('assets/logo/milk.png')),
+                                      padding: EdgeInsets.all(0),
+                                      child: Image.asset(
+                                          'assets/images/amul.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
@@ -295,7 +292,7 @@ class _DashboardState extends State<Dashboard> {
                                   child: Padding(
                                       padding: EdgeInsets.all(20),
                                       child: Image.asset(
-                                          'assets/logo/tomato.png')),
+                                          'assets/images/vegetable.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
@@ -333,7 +330,7 @@ class _DashboardState extends State<Dashboard> {
                                   child: Padding(
                                       padding: EdgeInsets.all(20),
                                       child:
-                                          Image.asset('assets/logo/sugar.png')),
+                                          Image.asset('assets/images/sugar.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(

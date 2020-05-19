@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Vendors.dart';
 
-Container detailsContainer(BuildContext context, img, price, name) {
+Container newdetailsContainer(BuildContext context, quantity, price, name) {
   return Container(
     margin: EdgeInsets.all(15),
     width: MediaQuery.of(context).size.width,
-    height: (MediaQuery.of(context).size.height / 2.25),
+    height: (MediaQuery.of(context).size.height / 5.25),
     child: Wrap(
       children: <Widget>[
         Padding(
             padding: EdgeInsets.only(left: 60, right: 60),
-            child: Center(child: Image.asset('$img'))),
-        Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                '$name',
-                style: TextStyle(fontFamily: 'Poppins', fontSize: 20.0),
+            child: Center(
+                child: Text(
+              '$name',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+            ))),
+        Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    '$quantity',
+                    style: TextStyle(fontFamily: 'Poppins', fontSize: 20.0),
+                  ),
+                  Text(
+                    '$price',
+                    style: TextStyle(fontFamily: 'Poppins', fontSize: 20.0),
+                  ),
+                ],
               ),
-              Text(
-                '$price',
-                style: TextStyle(fontFamily: 'Poppins', fontSize: 20.0),
-              ),
-            ],
-          ),
-        ),
+            )),
         GestureDetector(
             onTap: () {
               Navigator.push(
