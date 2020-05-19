@@ -27,7 +27,7 @@ class Contact extends StatelessWidget {
                 companyColor: Theme.of(context).accentColor,
                 taglineColor: Theme.of(context).accentColor,
                 textColor: Theme.of(context).primaryColor,
-                logo: AssetImage('assets/logo/stall.png'),
+                logo: AssetImage('assets/logo/logo1.png'),
                 email: 'Homebox.technical@gmail.com',
                 companyName: 'HomeBox',
                 phoneNumber: '+91123456789',

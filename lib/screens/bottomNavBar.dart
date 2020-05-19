@@ -3,8 +3,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:homebox/screens/AddBoxPage.dart';
 import 'package:homebox/screens/Contact.dart';
 import 'package:homebox/screens/Dashboard.dart';
-import 'package:homebox/screens/SettingPage.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:homebox/screens/MyOrders.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -16,9 +16,8 @@ class _BottomBar extends State<BottomBar> {
   List<Widget> _widgetOption = [
     Dashboard(),
     AddBox(),
-    Setting(),
     Contact(),
-    Setting()
+    MyOrders(),
   ];
 
   @override
