@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:homebox/VendorPart/AddItems.dart';
+import 'package:homebox/newLogin.dart';
 import 'package:homebox/screens/Intro.dart';
+import 'package:homebox/screens/Login.dart';
+import 'package:homebox/screens/LoginVendor.dart';
 import 'package:homebox/screens/splash.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Login(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => Intro(),
         // '/Dashboard': (BuildContext context) => Dashboard()
