@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/VendorPart/VendorChoice.dart';
 
@@ -40,65 +41,21 @@ class _AddItems extends State<AddItems> {
           child: StreamBuilder<DocumentSnapshot>(
             stream: Firestore.instance
                 .collection("Vendor")
-                .document("HomeBox Catagory")
+                .document("Vendor Catagory")
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<dynamic> data = snapshot.data.data["category"];
+                List<dynamic> data = snapshot.data.data["items"]["category"];
                 return ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              child: Container(
-                                padding: EdgeInsets.all(20.0),
-                                height: 300,
-                                child: Column(
-                                  children: <Widget>[
-                                    TextField(
-                                      controller: itemName,
-                                      decoration: InputDecoration(
-                                          hintText: "Enter Name"),
-                                    ),
-                                    TextField(
-                                      controller: itemPrice,
-                                      decoration: InputDecoration(
-                                          hintText: "Enter Price"),
-                                    ),
-                                    TextField(
-                                      controller: quantity,
-                                      decoration: InputDecoration(
-                                          hintText: "Enter Quantity"),
-                                    ),
-                                    RaisedButton(
-                                      onPressed: () {
-                                        data[index]["items"].add({
-                                          "name": itemName.text,
-                                          "price": itemPrice.text,
-                                          "quantity": quantity.text
-                                        });
-                                        Firestore.instance
-                                            .collection("Vendor")
-                                            .document("HomeBox Catagory")
-                                            .updateData({
-                                          "category": data
-                                        }).whenComplete(
-                                                () => Navigator.pop(context));
-                                      },
-                                      child: Text("Submit"),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    SubCategory(context, data, index)));
                       },
                       child: Container(
                         margin: EdgeInsets.all(20.0),
@@ -108,15 +65,96 @@ class _AddItems extends State<AddItems> {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(10.0)),
                         child: Center(
-                          child: Text(data[index]["category"]),
+                          child: Text(data[index]["name"]),
                         ),
                       ),
                     );
                   },
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
               }
             },
           ),
         ));
   }
+}
+
+Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
+  return Scaffold(
+    body: ListView.builder(
+      itemCount: data[index]["subcategory"].length,
+      itemBuilder: (context, int i) {
+        return GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    height: 300,
+                    child: Column(
+                      children: <Widget>[
+                        TextField(
+                          controller: itemName,
+                          decoration: InputDecoration(hintText: "Enter Name"),
+                        ),
+                        TextField(
+                          controller: itemPrice,
+                          decoration: InputDecoration(hintText: "Enter Price"),
+                        ),
+                        TextField(
+                          controller: quantity,
+                          decoration:
+                              InputDecoration(hintText: "Enter Quantity"),
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            data[index]["subcategory"][i]["items"].add({
+                              "name": itemName.text,
+                              "price": itemPrice.text,
+                              "quantity": quantity.text
+                            });
+                            Firestore.instance
+                                .collection("Vendor")
+                                .document("Vendor Catagory")
+                                .updateData({
+                              "items": {"category": data}
+                            }).whenComplete(() {
+                              itemName.clear();
+                              itemPrice.clear();
+                              quantity.clear();
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: Text("Submit"),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: Container(
+            margin: EdgeInsets.all(10.0),
+            width: 300,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.green,
+            ),
+            child: Center(
+              child: Text(data[index]["subcategory"][i]["name"]),
+            ),
+          ),
+        );
+      },
+    ),
+  );
 }
