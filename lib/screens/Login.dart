@@ -1,41 +1,66 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:homebox/screens/Dashboard.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
+import 'package:homebox/screens/LoginVendor.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
 
 TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
+FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Login extends StatefulWidget {
   @override
   _Login createState() => _Login();
 }
 
-FirebaseAuth _auth = FirebaseAuth.instance;
+// FirebaseAuth _auth = FirebaseAuth.instance;
 
 class _Login extends State<Login> {
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Hajipur'];
+  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch'];
   String _selectedLocation;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _auth.currentUser().then((value) {
+      if (value != null) {
+        print(value.displayName);
+        if (value.displayName == "vendor") {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarVendor()),
+              (_) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBar()),
+              (_) => false);
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: Color(0xFF61ce70),
+          color: Color(0xff61ce70),
           child: Stack(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     "\tLogin",
                     style: TextStyle(
                         color: Colors.black,
+                        fontFamily: 'Poppins',
                         fontSize: 50,
                         fontWeight: FontWeight.bold),
                   ),
@@ -150,7 +175,7 @@ class _Login extends State<Login> {
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.pink,
+                                                  color: Color(0xff61ce70),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           40)),
@@ -163,14 +188,33 @@ class _Login extends State<Login> {
                                                   child: Text(
                                                 "Submit",
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.black,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
                                               ))),
-                                        )
+                                        ),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  CupertinoPageRoute(
+                                                      builder: (context) =>
+                                                          LoginVendor()),
+                                                  (route) => false);
+                                            },
+                                            child: Text("Login as Vendor"))
                                       ],
                                     ),
-                                  ))))))
+                                  )))))),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(builder: (context) => LoginVendor()),
+                        (route) => false);
+                  },
+                  child: Text("Login as Vendor"))
             ],
           )),
     );

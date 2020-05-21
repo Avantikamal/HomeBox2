@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:homebox/screens/Dashboard.dart';
-import 'package:homebox/screens/bottomNavBar.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
+import 'package:homebox/screens/Login.dart';
+import '../VendorPart/bottomBar.dart';
 
 TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
@@ -13,14 +13,14 @@ String city;
 TextEditingController _keyController = new TextEditingController();
 String key = "homebox";
 
-class Login extends StatefulWidget {
+class LoginVendor extends StatefulWidget {
   @override
-  _Login createState() => _Login();
+  _LoginVendor createState() => _LoginVendor();
 }
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
-class _Login extends State<Login> {
+class _LoginVendor extends State<LoginVendor> {
   List<String> _locations = ['Vadodra', 'Bhavnagar', 'Hajipur'];
   String _selectedLocation;
   @override
@@ -159,6 +159,13 @@ class _Login extends State<Login> {
                                                     );
                                                   });
                                             }
+
+                                            // Navigator.pushAndRemoveUntil(
+                                            //     context,
+                                            //     CupertinoPageRoute(
+                                            //         builder: (context) =>
+                                            //             BottomBarVendor()),
+                                            //     (route) => false);
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
@@ -179,10 +186,21 @@ class _Login extends State<Login> {
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
                                               ))),
-                                        )
+                                        ),
+                                        SizedBox(height: 20),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  CupertinoPageRoute(
+                                                      builder: (context) =>
+                                                          Login()),
+                                                  (route) => false);
+                                            },
+                                            child: Text("Login as User"))
                                       ],
                                     ),
-                                  ))))))
+                                  )))))),
             ],
           )),
     );
@@ -191,11 +209,16 @@ class _Login extends State<Login> {
 
 verificationCompleted(AuthCredential authCredential, BuildContext context) {
   _auth.signInWithCredential(authCredential).then((value) {
-    Firestore.instance.collection("vendor").document(value.user.uid).setData(
+    Firestore.instance.collection("Vendor").document(value.user.uid).setData(
         {"name": _name.text, "city": city, "type": "vendor"}).whenComplete(() {
+      UserUpdateInfo update = new UserUpdateInfo();
+      update.displayName = "vendor";
+
+      value.user.updateProfile(update);
+      value.user.reload();
       Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => BottomBar()),
+          CupertinoPageRoute(builder: (context) => BottomBarVendor()),
           (route) => false);
     });
   });
@@ -291,17 +314,22 @@ Widget otpPage(BuildContext context, String verificationId) {
                             .signInWithCredential(credential)
                             .then((value) {
                           Firestore.instance
-                              .collection("vendor")
+                              .collection("Vendor")
                               .document(value.user.uid)
                               .setData({
                             "name": _name.text,
                             "city": city,
                             "type": "vendor"
                           }).whenComplete(() {
+                            UserUpdateInfo update = new UserUpdateInfo();
+                            update.displayName = "vendor";
+
+                            value.user.updateProfile(update);
+                            value.user.reload();
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => BottomBar()),
+                                    builder: (context) => BottomBarVendor()),
                                 (route) => false);
                           });
                           // Firestore.instance
