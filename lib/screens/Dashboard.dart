@@ -34,9 +34,15 @@ class _DashboardState extends State<Dashboard> {
           height: 60.0,
           width: 60.0,
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey, offset: Offset(5, 5), blurRadius: 5),
+              BoxShadow(
+                  color: Colors.white, offset: Offset(-5, -5), blurRadius: 5)
+            ],
             color: _selectedindex == index
                 ? Theme.of(context).accentColor
-                : Colors.white54,
+                : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(30.0),
           ),
           child: Icon(
@@ -52,6 +58,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         elevation: 5.0,
         centerTitle: true,
@@ -163,191 +170,198 @@ class _DashboardState extends State<Dashboard> {
               child: Container(
                 // ignore: unrelated_type_equality_checks
                 height: 250.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                ),
                 width: MediaQuery.of(context).size.width,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          settingModalBottomSheet(
-                            context,
-                            'assets/images/bread.png',
-                            'Rs. 40.0',
-                            'Bread',
-                          );
-                        });
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        color: ThemeMode.dark == true
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).primaryColorDark,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                                height: 140,
-                                child: Center(
-                                    child: Card(
-                                  elevation: 10,
-                                  color: Colors.white,
-                                  child: Padding(
-                                      padding: EdgeInsets.all(0),
-                                      child: Image.asset(
-                                          'assets/images/bread.png')),
-                                ))),
-                            SizedBox(height: 3),
-                            Text(
-                              "Bread",
-                              style: TextStyle(
-                                  fontSize: 30, fontFamily: 'Poppins'),
-                            ),
-                            Text(
-                              "Rs.20.00",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {});
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        color: ThemeMode.dark == true
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).primaryColorDark,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                                height: 140,
-                                child: Center(
-                                    child: Card(
-                                  elevation: 10,
-                                  color: Colors.white,
-                                  child: Padding(
-                                      padding: EdgeInsets.all(0),
-                                      child: Image.asset(
-                                          'assets/images/amul.png')),
-                                ))),
-                            SizedBox(height: 3),
-                            Text(
-                              "Milk",
-                              style: TextStyle(
-                                  fontSize: 30, fontFamily: 'Poppins'),
-                            ),
-                            Text(
-                              "Rs.30.00/Lit.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            // height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, -5),
+                                      blurRadius: 10)
+                                ]),
+                          ),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 400,
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, -5),
+                                      blurRadius: 10)
+                                ]),
+                          ),
+                        ))
                   ],
                 ),
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Top Rated Products:",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      fontFamily: 'Poppins'),
-                )),
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                "Top Rated Products:",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'Poppins'),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0, left: 10),
               child: Container(
                 // ignore: unrelated_type_equality_checks
                 height: 250.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                ),
                 width: MediaQuery.of(context).size.width,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {});
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        color: ThemeMode.dark == true
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).primaryColorDark,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                                height: 140,
-                                child: Center(
-                                    child: Card(
-                                  elevation: 10,
-                                  color: Colors.white,
-                                  child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Image.asset(
-                                          'assets/images/vegetable.png')),
-                                ))),
-                            SizedBox(height: 3),
-                            Text(
-                              "Vegetables",
-                              style: TextStyle(
-                                  fontSize: 30, fontFamily: 'Poppins'),
-                            ),
-                            Text(
-                              "Rs.20.00/Kg.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {});
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        color: ThemeMode.dark == true
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).primaryColorDark,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                                height: 140,
-                                child: Center(
-                                    child: Card(
-                                  elevation: 10,
-                                  color: Colors.white,
-                                  child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Image.asset(
-                                          'assets/images/sugar.png')),
-                                ))),
-                            SizedBox(height: 3),
-                            Text(
-                              "Sugar",
-                              style: TextStyle(
-                                  fontSize: 30, fontFamily: 'Poppins'),
-                            ),
-                            Text(
-                              "Rs.30.00/Kg.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 400,
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, -5),
+                                      blurRadius: 10)
+                                ]),
+                          ),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 400,
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, -5),
+                                      blurRadius: 10)
+                                ]),
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Organic Farms & Vegeies:",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      fontFamily: 'Poppins'),
+                )),
+            SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10),
+              child: Container(
+                // ignore: unrelated_type_equality_checks
+                height: 250.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                ),
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            // height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, -5),
+                                      blurRadius: 10)
+                                ]),
+                          ),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 400,
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, -5),
+                                      blurRadius: 10)
+                                ]),
+                          ),
+                        ))
                   ],
                 ),
               ),

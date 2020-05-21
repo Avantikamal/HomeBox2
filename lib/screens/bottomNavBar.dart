@@ -13,13 +13,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBar extends State<BottomBar> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOption = [
-    Dashboard(),
-    AddBox(),
-    Setting(),
-    Contact(),
-    Setting()
-  ];
+  List<Widget> _widgetOption = [Dashboard(), AddBox(), Contact(), Setting()];
 
   @override
   Widget build(BuildContext context) {
