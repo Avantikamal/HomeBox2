@@ -1,23 +1,11 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-=======
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:homebox/screens/Dashboard.dart';
->>>>>>> b9addb1da31d91196b75378937859252da945c73
-=======
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/LoginVendor.dart';
->>>>>>> 1f82a6abbc6375ebd62f299b354874af993525e5
 import 'package:homebox/screens/bottomNavBar.dart';
 
 TextEditingController _codeController = new TextEditingController();
@@ -34,15 +22,7 @@ class Login extends StatefulWidget {
 // FirebaseAuth _auth = FirebaseAuth.instance;
 
 class _Login extends State<Login> {
-<<<<<<< HEAD
-<<<<<<< HEAD
   List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch'];
-=======
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Hajipur'];
->>>>>>> b9addb1da31d91196b75378937859252da945c73
-=======
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch'];
->>>>>>> 1f82a6abbc6375ebd62f299b354874af993525e5
   String _selectedLocation;
 
   @override
@@ -71,15 +51,7 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-<<<<<<< HEAD
-<<<<<<< HEAD
           color: Color(0xff61ce70),
-=======
-          color: Color(0xFF61ce70),
->>>>>>> b9addb1da31d91196b75378937859252da945c73
-=======
-          color: Color(0xff61ce70),
->>>>>>> 1f82a6abbc6375ebd62f299b354874af993525e5
           child: Stack(
             children: <Widget>[
               Padding(
