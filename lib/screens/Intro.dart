@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Dashboard.dart';
 import 'package:homebox/screens/Login.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
@@ -16,19 +17,23 @@ final auth = FirebaseAuth.instance;
 // final reference = FirebaseDatabase.instance.reference();
 
 class _Intro extends State<Intro> {
-
-void check() {
+  void check() {
     auth.currentUser().then((value) {
       if (value != null) {
+        if (value.displayName == "vendor") {
           Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => BottomBar()),
-                (_) => false);
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarVendor()),
+              (_) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBar()),
+              (_) => false);
+        }
       } else {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) =>Login()),
-            (_) => false);
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => Login()), (_) => false);
       }
     });
   }
@@ -91,7 +96,7 @@ void check() {
   Widget renderDoneBtn() {
     return GestureDetector(
         onTap: () {
-        check();
+          check();
         },
         child: Text("Done"));
   }

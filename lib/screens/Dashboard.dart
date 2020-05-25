@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homebox/screens/AllCatagory.dart';
+import 'package:homebox/screens/AllCategory.dart';
 import 'package:homebox/Shared/Modal.dart';
 
 class Dashboard extends StatefulWidget {
@@ -111,9 +111,9 @@ class _DashboardState extends State<Dashboard> {
                   GestureDetector(
                       onTap: () {
                         Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllCatagory()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AllCatagory()));
                       },
                       child: Padding(
                           padding: EdgeInsets.only(right: 10),
@@ -126,8 +126,8 @@ class _DashboardState extends State<Dashboard> {
                                     fontSize: 15,
                                     color: Colors.green),
                               ))))
-                ],),
-                
+                ],
+              ),
             ),
             SizedBox(height: 10),
             Container(
@@ -196,8 +196,8 @@ class _DashboardState extends State<Dashboard> {
                                       padding: EdgeInsets.all(20),
                                       child:
                                           // Image.asset('assets/logo/bread.png')
-                                          Image.network('http://pngimg.com/uploads/bread/bread_PNG2324.png')
-                                          ),
+                                          Image.network(
+                                              'http://pngimg.com/uploads/bread/bread_PNG2324.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(
