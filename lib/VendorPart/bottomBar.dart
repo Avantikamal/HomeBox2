@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:homebox/VendorPart/AddItems.dart';
 import 'package:homebox/VendorPart/MyItems.dart';
-import 'package:homebox/VendorPart/MyProducts.dart';
+import 'package:homebox/screens/vendorList.dart';
 import 'package:line_icons/line_icons.dart';
 
 class BottomBarVendor extends StatefulWidget {
@@ -13,10 +13,9 @@ class BottomBarVendor extends StatefulWidget {
 class _BottomBarVendor extends State<BottomBarVendor> {
   int _selectedIndex = 0;
   List<Widget> _widgetOption = [
-    AddItems(),
-    AddItems(),
     MyItems(),
-    MyProducts()
+    AddItems(),
+    VendorList(),
   ];
 
   @override
@@ -24,9 +23,13 @@ class _BottomBarVendor extends State<BottomBarVendor> {
     return Scaffold(
         body: Center(child: _widgetOption.elementAt(_selectedIndex)),
         bottomNavigationBar: Container(
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
-          ]),
+          margin: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
+              ]),
           child: SafeArea(
             child: Padding(
               padding:

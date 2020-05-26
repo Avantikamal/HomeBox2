@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Login.dart';
+import 'package:homebox/screens/splash.dart';
 import '../VendorPart/bottomBar.dart';
 
 TextEditingController _codeController = new TextEditingController();
@@ -209,17 +210,43 @@ class _LoginVendor extends State<LoginVendor> {
 
 verificationCompleted(AuthCredential authCredential, BuildContext context) {
   _auth.signInWithCredential(authCredential).then((value) {
-    Firestore.instance.collection("Vendor").document(value.user.uid).setData(
-        {"name": _name.text, "city": city, "type": "vendor"}).whenComplete(() {
-      UserUpdateInfo update = new UserUpdateInfo();
-      update.displayName = "vendor";
-
-      value.user.updateProfile(update);
-      value.user.reload();
-      Navigator.pushAndRemoveUntil(
-          context,
-          CupertinoPageRoute(builder: (context) => BottomBarVendor()),
-          (route) => false);
+    Firestore.instance
+        .collection("vendor")
+        .document(value.user.uid)
+        .get()
+        .then((doc) {
+      userID = value.user.uid;
+      if (doc.data != null) {
+        Navigator.push(context,
+            CupertinoPageRoute(builder: (context) => BottomBarVendor()));
+      } else {
+        List<dynamic> temp = [];
+        Firestore.instance
+            .collection("category")
+            .document("example")
+            .get()
+            .then((snap) {
+          temp = snap.data["items"]["category"];
+          Firestore.instance
+              .collection("vendor")
+              .document(value.user.uid)
+              .setData({
+            "name": _name.text,
+            "city": city,
+            "type": "vendor",
+            "items": {"category": temp}
+          }).whenComplete(() {
+            UserUpdateInfo update = new UserUpdateInfo();
+            update.displayName = "vendor";
+            value.user.updateProfile(update);
+            value.user.reload();
+            Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => BottomBarVendor()),
+                (route) => false);
+          });
+        });
+      }
     });
   });
 }
@@ -314,24 +341,48 @@ Widget otpPage(BuildContext context, String verificationId) {
                             .signInWithCredential(credential)
                             .then((value) {
                           Firestore.instance
-                              .collection("Vendor")
+                              .collection("vendor")
                               .document(value.user.uid)
-                              .setData({
-                            "name": _name.text,
-                            "city": city,
-                            "type": "vendor"
-                          }).whenComplete(() {
-                            UserUpdateInfo update = new UserUpdateInfo();
-                            update.displayName = "vendor";
-
-                            value.user.updateProfile(update);
-                            value.user.reload();
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => BottomBarVendor()),
-                                (route) => false);
+                              .get()
+                              .then((doc) {
+                            userID = value.user.uid;
+                            if (doc.data != null) {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => BottomBarVendor()));
+                            } else {
+                              List<dynamic> temp = [];
+                              Firestore.instance
+                                  .collection("category")
+                                  .document("example")
+                                  .get()
+                                  .then((snap) {
+                                temp = snap.data["items"]["category"];
+                                Firestore.instance
+                                    .collection("vendor")
+                                    .document(value.user.uid)
+                                    .setData({
+                                  "name": _name.text,
+                                  "city": city,
+                                  "type": "vendor",
+                                  "items": {"category": temp}
+                                }).whenComplete(() {
+                                  UserUpdateInfo update = new UserUpdateInfo();
+                                  update.displayName = "vendor";
+                                  value.user.updateProfile(update);
+                                  value.user.reload();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              BottomBarVendor()),
+                                      (route) => false);
+                                });
+                              });
+                            }
                           });
+
                           // Firestore.instance
                           //     .collection("users")
                           //     .document(value.user.uid)

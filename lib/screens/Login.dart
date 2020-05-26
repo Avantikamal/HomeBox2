@@ -17,33 +17,9 @@ class Login extends StatefulWidget {
   _Login createState() => _Login();
 }
 
-// FirebaseAuth _auth = FirebaseAuth.instance;
-
 class _Login extends State<Login> {
   List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch','Ajmer','Nasirabad'];
   String _selectedLocation;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _auth.currentUser().then((value) {
-      if (value != null) {
-        print(value.displayName);
-        if (value.displayName == "vendor") {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomBarVendor()),
-              (_) => false);
-        } else {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomBar()),
-              (_) => false);
-        }
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

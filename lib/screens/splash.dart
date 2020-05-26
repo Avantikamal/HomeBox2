@@ -1,12 +1,21 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/material.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
+import 'package:homebox/screens/Login.dart';
+
+import 'bottomNavBar.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreen createState() => _SplashScreen();
 }
+
+String userID;
 
 class _SplashScreen extends State<SplashScreen> {
   startTime() async {
@@ -14,8 +23,30 @@ class _SplashScreen extends State<SplashScreen> {
     return Timer(_duration, navigationPage);
   }
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/HomeScreen');
+    _auth.currentUser().then((value) {
+      if (value != null) {
+        print(value.displayName);
+        if (value.displayName == "vendor") {
+          userID = value.uid;
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarVendor()),
+              (_) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBar()),
+              (_) => false);
+        }
+      } else {
+        Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoPageRoute(builder: (context) => Login()),
+            (route) => false);
+      }
+    });
   }
 
   @override
@@ -37,7 +68,11 @@ class _SplashScreen extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Center(child: SpinKitFadingCube(color: Colors.black))
+                  Center(
+                      child: SpinKitFadingCube(
+                    color: Colors.black,
+                    size: 25.0,
+                  ))
                 ],
               ),
             )));
