@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/LoginVendor.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
 
@@ -9,6 +10,7 @@ TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
+FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Login extends StatefulWidget {
   @override
@@ -18,8 +20,31 @@ class Login extends StatefulWidget {
 // FirebaseAuth _auth = FirebaseAuth.instance;
 
 class _Login extends State<Login> {
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch'];
+  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch','Ajmer','Nasirabad'];
   String _selectedLocation;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _auth.currentUser().then((value) {
+      if (value != null) {
+        print(value.displayName);
+        if (value.displayName == "vendor") {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarVendor()),
+              (_) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBar()),
+              (_) => false);
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,54 +131,47 @@ class _Login extends State<Login> {
                                         SizedBox(height: 20),
                                         GestureDetector(
                                           onTap: () {
-
-                                            Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) =>
-                                                          BottomBar()),
-                                                  (route) => false);
-                                          //   if (_phoneController.text.length ==
-                                          //           10 ||
-                                          //       _name.text != null &&
-                                          //           _name.text != "") {
-                                          //     _auth.verifyPhoneNumber(
-                                          //         phoneNumber: "+91" +
-                                          //             _phoneController.text,
-                                          //         timeout:
-                                          //             Duration(seconds: 60),
-                                          //         verificationCompleted:
-                                          //             (authCredential) =>
-                                          //                 verificationCompleted(
-                                          //                     authCredential, context),
-                                          //         verificationFailed: (authException) =>
-                                          //             verificationFailed(
-                                          //                 authException, context),
-                                          //         codeSent: (verificationId, [code]) =>
-                                          //             smsSent(verificationId,
-                                          //                 [code], context),
-                                          //         codeAutoRetrievalTimeout:
-                                          //             (verificationId) =>
-                                          //                 print("Enter OTP manually"));
-                                          //   } else {
-                                          //     showDialog(
-                                          //         context: (context),
-                                          //         builder: (context) {
-                                          //           return AlertDialog(
-                                          //             content: Text(
-                                          //                 "One or More options are missing"),
-                                          //             actions: <Widget>[
-                                          //               GestureDetector(
-                                          //                 onTap: () {
-                                          //                   Navigator.pop(
-                                          //                       context);
-                                          //                 },
-                                          //                 child: Text("OK"),
-                                          //               )
-                                          //             ],
-                                          //           );
-                                          //         });
-                                          //   }
+                                            if (_phoneController.text.length ==
+                                                    10 ||
+                                                _name.text != null &&
+                                                    _name.text != "") {
+                                              _auth.verifyPhoneNumber(
+                                                  phoneNumber: "+91" +
+                                                      _phoneController.text,
+                                                  timeout:
+                                                      Duration(seconds: 60),
+                                                  verificationCompleted:
+                                                      (authCredential) =>
+                                                          verificationCompleted(
+                                                              authCredential, context),
+                                                  verificationFailed: (authException) =>
+                                                      verificationFailed(
+                                                          authException, context),
+                                                  codeSent: (verificationId, [code]) =>
+                                                      smsSent(verificationId,
+                                                          [code], context),
+                                                  codeAutoRetrievalTimeout:
+                                                      (verificationId) =>
+                                                          print("Enter OTP manually"));
+                                            } else {
+                                              showDialog(
+                                                  context: (context),
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      content: Text(
+                                                          "One or More options are missing"),
+                                                      actions: <Widget>[
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text("OK"),
+                                                        )
+                                                      ],
+                                                    );
+                                                  });
+                                            }
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
@@ -203,155 +221,155 @@ class _Login extends State<Login> {
   }
 }
 
-// verificationCompleted(AuthCredential authCredential, BuildContext context) {
-//   _auth.signInWithCredential(authCredential).then((value) {
-//     Firestore.instance.collection("users").document(value.user.uid).setData(
-//         {"name": _name.text, "city": city, "type": "user"}).whenComplete(() {
-//       Navigator.pushAndRemoveUntil(
-//           context,
-//           CupertinoPageRoute(builder: (context) => BottomBar()),
-//           (route) => false);
-//     });
-//   });
-// }
+verificationCompleted(AuthCredential authCredential, BuildContext context) {
+  _auth.signInWithCredential(authCredential).then((value) {
+    Firestore.instance.collection("users").document(value.user.uid).setData(
+        {"name": _name.text, "city": city, "type": "user"}).whenComplete(() {
+      Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => BottomBar()),
+          (route) => false);
+    });
+  });
+}
 
-// verificationFailed(AuthException authException, BuildContext context) {
-//   print(authException.message);
-// }
+verificationFailed(AuthException authException, BuildContext context) {
+  print(authException.message);
+}
 
-// smsSent(String verificationId, List<int> code, BuildContext context) {
-//   Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//           builder: (context) => otpPage(context, verificationId)));
-// }
+smsSent(String verificationId, List<int> code, BuildContext context) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => otpPage(context, verificationId)));
+}
 
-// codeAutoRetrieval() {}
+codeAutoRetrieval() {}
 
-// Widget otpPage(BuildContext context, String verificationId) {
-//   TextEditingController otp = new TextEditingController();
-//   return Scaffold(
-//     body: Stack(
-//       children: <Widget>[
-//         Container(
-//           decoration: BoxDecoration(color: Color(0xFF61ce70)),
-//         ),
-//         Padding(
-//           padding: EdgeInsets.fromLTRB(30, 300, 30, 0),
-//           child: SingleChildScrollView(
-//             child: Form(
-//               child: Column(children: <Widget>[
-//                 Center(
-//                   child: Text(
-//                     "Please wait or Enter OTP manually",
-//                     textAlign: TextAlign.center,
-//                     style: TextStyle(fontSize: 20.0, fontFamily: "Poppins"),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 10.0,
-//                 ),
-//                 TextFormField(
-//                   keyboardType: TextInputType.number,
-//                   maxLength: 6,
-//                   style: TextStyle(color: Color.fromRGBO(38, 50, 56, .50)),
-//                   controller: otp,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter OTP',
-//                     hintStyle: TextStyle(
-//                       color: Color.fromRGBO(38, 50, 56, 0.30),
-//                       fontSize: 15.0,
-//                       fontFamily: "Poppins",
-//                     ),
-//                     filled: true,
-//                     fillColor: Colors.white,
-//                     contentPadding:
-//                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
-//                     ),
-//                     enabledBorder: OutlineInputBorder(
-//                       borderSide: BorderSide(color: Colors.white, width: 1.0),
-//                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
-//                     ),
-//                     focusedBorder: OutlineInputBorder(
-//                       borderSide: BorderSide(color: Colors.white, width: 1.0),
-//                       borderRadius: BorderRadius.all(Radius.circular(6.0)),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 15.0,
-//                 ),
-//                 SizedBox(
-//                   height: 49.0,
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.symmetric(vertical: 16.0),
-//                   child: Material(
-//                     color: Colors.white,
-//                     borderRadius: BorderRadius.all(Radius.circular(12.0)),
-//                     elevation: 0.0,
-//                     child: MaterialButton(
-//                       onPressed: () async {
-//                         //Implement login functionality.
-//                         // Fluttertoast.showToast(
-//                         //     msg: "Please Wait", timeInSecForIosWeb: 3);
-//                         final AuthCredential credential =
-//                             PhoneAuthProvider.getCredential(
-//                                 verificationId: verificationId,
-//                                 smsCode: otp.text);
-//                         FirebaseAuth.instance
-//                             .signInWithCredential(credential)
-//                             .then((value) {
-//                           Firestore.instance
-//                               .collection("users")
-//                               .document(value.user.uid)
-//                               .setData({
-//                             "name": _name.text,
-//                             "city": city,
-//                             "type": "user"
-//                           }).whenComplete(() {
-//                             Navigator.pushAndRemoveUntil(
-//                                 context,
-//                                 CupertinoPageRoute(
-//                                     builder: (context) => BottomBar()),
-//                                 (route) => false);
-//                           });
-//                           // Firestore.instance
-//                           //     .collection("users")
-//                           //     .document(value.user.uid)
-//                           //     .setData(
-//                           //         {"name": _name.text, "mobile": mobNo.text});
-//                           // Navigator.pushAndRemoveUntil(
-//                           //     context,
-//                           //     CupertinoPageRoute(
-//                           //         builder: (context) => ExplorePage()),
-//                           //     (route) => false);
-//                         });
-//                       },
-//                       minWidth: 220.0,
-//                       height: 50.0,
-//                       child: Text(
-//                         'SUBMIT',
-//                         style: TextStyle(
-//                           color: Colors.black,
-//                           fontWeight: FontWeight.bold,
-//                           fontFamily: "Poppins",
-//                           fontSize: 15.0,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 30.0,
-//                 ),
-//               ]),
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
+Widget otpPage(BuildContext context, String verificationId) {
+  TextEditingController otp = new TextEditingController();
+  return Scaffold(
+    body: Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(color: Color(0xFF61ce70)),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(30, 300, 30, 0),
+          child: SingleChildScrollView(
+            child: Form(
+              child: Column(children: <Widget>[
+                Center(
+                  child: Text(
+                    "Please wait or Enter OTP manually",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Poppins"),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  maxLength: 6,
+                  style: TextStyle(color: Color.fromRGBO(38, 50, 56, .50)),
+                  controller: otp,
+                  decoration: InputDecoration(
+                    hintText: 'Enter OTP',
+                    hintStyle: TextStyle(
+                      color: Color.fromRGBO(38, 50, 56, 0.30),
+                      fontSize: 15.0,
+                      fontFamily: "Poppins",
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                SizedBox(
+                  height: 49.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  child: Material(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    elevation: 0.0,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        // Implement login functionality.
+                        // Fluttertoast.showToast(
+                        //     msg: "Please Wait", timeInSecForIosWeb: 3);
+                        final AuthCredential credential =
+                            PhoneAuthProvider.getCredential(
+                                verificationId: verificationId,
+                                smsCode: otp.text);
+                        FirebaseAuth.instance
+                            .signInWithCredential(credential)
+                            .then((value) {
+                          Firestore.instance
+                              .collection("users")
+                              .document(value.user.uid)
+                              .setData({
+                            "name": _name.text,
+                            "city": city,
+                            "type": "user"
+                          }).whenComplete(() {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => BottomBar()),
+                                (route) => false);
+                          });
+                          // Firestore.instance
+                          //     .collection("users")
+                          //     .document(value.user.uid)
+                          //     .setData(
+                          //         {"name": _name.text, "mobile": mobNo.text});
+                          // Navigator.pushAndRemoveUntil(
+                          //     context,
+                          //     CupertinoPageRoute(
+                          //         builder: (context) => ExplorePage()),
+                          //     (route) => false);
+                        });
+                      },
+                      minWidth: 220.0,
+                      height: 50.0,
+                      child: Text(
+                        'SUBMIT',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Poppins",
+                          fontSize: 15.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+              ]),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}

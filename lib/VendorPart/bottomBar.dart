@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:homebox/screens/AddBoxPage.dart';
-import 'package:homebox/screens/AllCatagory.dart';
-import 'package:homebox/screens/Contact.dart';
-import 'package:homebox/screens/Dashboard.dart';
-import 'package:homebox/screens/SettingPage.dart';
+import 'package:homebox/VendorPart/AddItems.dart';
+import 'package:homebox/VendorPart/MyItems.dart';
+import 'package:homebox/VendorPart/MyProducts.dart';
 import 'package:line_icons/line_icons.dart';
 
-class BottomBar extends StatefulWidget {
+class BottomBarVendor extends StatefulWidget {
   @override
-  _BottomBar createState() => _BottomBar();
+  _BottomBarVendor createState() => _BottomBarVendor();
 }
 
-class _BottomBar extends State<BottomBar> {
+class _BottomBarVendor extends State<BottomBarVendor> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOption = [AllCatagory(), AddBox(), Contact(), Setting()];
+  List<Widget> _widgetOption = [
+    AddItems(),
+    AddItems(),
+    MyItems(),
+    MyProducts()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +41,11 @@ class _BottomBar extends State<BottomBar> {
                   tabs: [
                     GButton(
                       icon: LineIcons.home,
-                      text: 'DashBoard',
+                      text: 'My Items',
                     ),
                     GButton(
                       icon: LineIcons.shopping_cart,
-                      text: 'My Box',
+                      text: 'Add Items',
                     ),
                     GButton(
                       icon: LineIcons.phone,

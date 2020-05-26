@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:homebox/Shared/Modal.dart';
+import 'package:homebox/Shared/newModel.dart';
 
 Scaffold allItems(BuildContext context, name) {
   print(name);
@@ -48,7 +50,7 @@ Scaffold allItems(BuildContext context, name) {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              8,
+                                              6,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           decoration: BoxDecoration(
@@ -65,13 +67,26 @@ Scaffold allItems(BuildContext context, name) {
                                                     offset: Offset(-5, -5),
                                                     blurRadius: 10)
                                               ]),
-                                          child: Center(
-                                            child: Text(
-                                              va[index]['name'].toString(),
-                                              style: TextStyle(
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey.shade100,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                              ),
+                                              Center(
+                                                  child: Text(va[index]['name'],
+                                                      style: TextStyle(
+                                                          fontSize: 30,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black)))
+                                            ],
                                           )))))
                         ],
                       );
@@ -80,7 +95,8 @@ Scaffold allItems(BuildContext context, name) {
           }));
 }
 
-Widget allCater(BuildContext context, ind) {
+List<dynamic> orders;
+Scaffold allCater(BuildContext context, ind) {
   return Scaffold(
       appBar: AppBar(
         elevation: 5.0,
@@ -98,8 +114,9 @@ Widget allCater(BuildContext context, ind) {
               .collection('Vendor')
               .document('HomeBox Catagory')
               .snapshots(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.data!=null) {
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.data != null) {
               List<dynamic> va = ind['items'];
 
               // if (snapshot.hasError) return Text('${snapshot.error}');
@@ -115,18 +132,18 @@ Widget allCater(BuildContext context, ind) {
                               padding: EdgeInsets.all(20),
                               child: GestureDetector(
                                   onTap: () {
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             allCater(context, va[index])));
+                                    newsettingModalBottomSheet(
+                                        context,
+                                        va[index]['quantity'].toString(),
+                                        va[index]['price'].toString(),
+                                        va[index]['name'].toString());
                                   },
                                   child: Center(
                                       child: Container(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              7,
+                                              5,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           decoration: BoxDecoration(

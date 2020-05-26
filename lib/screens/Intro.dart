@@ -87,8 +87,7 @@ class _Intro extends State<Intro> {
   }
 
   void onDonePress() {
-    // Back to the first tab
-    this.goToTab(0);
+          check();
   }
 
   void onTabChangeCompleted(index) {

@@ -5,7 +5,7 @@ Container newdetailsContainer(BuildContext context, quantity, price, name) {
   return Container(
     margin: EdgeInsets.all(15),
     width: MediaQuery.of(context).size.width,
-    height: (MediaQuery.of(context).size.height / 5.25),
+    height: (MediaQuery.of(context).size.height / 7),
     child: Wrap(
       children: <Widget>[
         Padding(
@@ -22,32 +22,13 @@ Container newdetailsContainer(BuildContext context, quantity, price, name) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    '$quantity',
+                    'Quantity:  '+'$quantity',
                     style: TextStyle(fontFamily: 'Poppins', fontSize: 20.0),
                   ),
                   Text(
-                    '$price',
+                   'Price:  ' '$price',
                     style: TextStyle(fontFamily: 'Poppins', fontSize: 20.0),
                   ),
-                ],
-              ),
-            )),
-        GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Vendor()));
-            },
-            child: SizedBox(
-              height: 40.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Vendors...',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 20.0,
-                        color: Colors.green,
-                      ))
                 ],
               ),
             )),
