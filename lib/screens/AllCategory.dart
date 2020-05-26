@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:homebox/VendorPart/MyItemList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homebox/screens/itemsList.dart';
-import 'package:homebox/screens/splash.dart';
 
-class MyItems extends StatefulWidget {
+class AllCatagory extends StatefulWidget {
+  String docID;
+  AllCatagory({Key key, @required this.docID}) : super(key: key);
   @override
-  _MyItems createState() => _MyItems();
+  _AllCatagory createState() => _AllCatagory();
 }
 
-class _MyItems extends State<MyItems> {
+class _AllCatagory extends State<AllCatagory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _MyItems extends State<MyItems> {
         body: StreamBuilder<DocumentSnapshot>(
             stream: Firestore.instance
                 .collection('vendor')
-                .document(userID)
+                .document(widget.docID)
                 .snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -52,8 +52,9 @@ class _MyItems extends State<MyItems> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => MyItemList(
+                                              builder: (context) => Items(
                                                     index: index,
+                                                    DocID: widget.docID,
                                                   )));
                                     },
                                     child: Center(
@@ -120,47 +121,4 @@ class _MyItems extends State<MyItems> {
               }
             }));
   }
-}
-
-Widget productList(BuildContext context, List<dynamic> data, int index, int i) {
-  return Scaffold(
-    body: ListView.builder(
-      itemCount: data[index]["subcategory"][i]["items"].length,
-      itemBuilder: (context, int j) {
-        return GestureDetector(
-          onTap: () {
-            List<dynamic> temp = [];
-            for (int k = 0;
-                k < data[index]["subcategory"][i]["items"].length;
-                k++) {
-              if (k == j) {
-                continue;
-              } else {
-                temp.add(data[index]["subcategory"][i]["items"][j]);
-              }
-            }
-            data[index]["subcategory"][i]["items"] = temp;
-            Firestore.instance
-                .collection("vendor")
-                .document(userID)
-                .updateData({
-              "items": {"category": data}
-            });
-          },
-          child: Container(
-            margin: EdgeInsets.all(10.0),
-            width: 300,
-            height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.green,
-            ),
-            child: Center(
-              child: Text(data[index]["subcategory"][i]["items"][j]["name"]),
-            ),
-          ),
-        );
-      },
-    ),
-  );
 }

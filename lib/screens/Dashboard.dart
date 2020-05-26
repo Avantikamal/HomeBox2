@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homebox/screens/AllCategory.dart';
 import 'package:homebox/Shared/Modal.dart';
-import 'AllCatagory.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -113,7 +113,7 @@ class _DashboardState extends State<Dashboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AllCatagory()));
+                                builder: (context) => AllCatagory(docID: 'TrH35yGujGhwnaeWGhKz6SNPGhp1')));
                       },
                       child: Padding(
                           padding: EdgeInsets.only(right: 10),
@@ -193,9 +193,11 @@ class _DashboardState extends State<Dashboard> {
                                   elevation: 10,
                                   color: Colors.white,
                                   child: Padding(
-                                      padding: EdgeInsets.all(0),
-                                      child: Image.asset(
-                                          'assets/images/bread.png')),
+                                      padding: EdgeInsets.all(20),
+                                      child:
+                                          // Image.asset('assets/logo/bread.png')
+                                          Image.network(
+                                              'http://pngimg.com/uploads/bread/bread_PNG2324.png')),
                                 ))),
                             SizedBox(height: 3),
                             Text(

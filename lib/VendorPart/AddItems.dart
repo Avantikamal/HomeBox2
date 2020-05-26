@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/VendorPart/VendorChoice.dart';
@@ -40,8 +41,8 @@ class _AddItems extends State<AddItems> {
           height: MediaQuery.of(context).size.height,
           child: StreamBuilder<DocumentSnapshot>(
             stream: Firestore.instance
-                .collection("Vendor")
-                .document("Vendor Catagory")
+                .collection("category")
+                .document("example")
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -114,17 +115,24 @@ Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
                               InputDecoration(hintText: "Enter Quantity"),
                         ),
                         RaisedButton(
-                          onPressed: () {
-                            data[index]["subcategory"][i]["items"].add({
+                          onPressed: () async {
+                            FirebaseUser user =
+                                await FirebaseAuth.instance.currentUser();
+                            DocumentSnapshot map = await Firestore.instance
+                                .collection("vendor")
+                                .document(user.uid)
+                                .get();
+                            List<dynamic> temp = map.data["items"]["category"];
+                            temp[index]["subcategory"][i]["items"].add({
                               "name": itemName.text,
                               "price": itemPrice.text,
                               "quantity": quantity.text
                             });
                             Firestore.instance
-                                .collection("Vendor")
-                                .document("Vendor Catagory")
+                                .collection("vendor")
+                                .document(user.uid)
                                 .updateData({
-                              "items": {"category": data}
+                              "items": {"category": temp}
                             }).whenComplete(() {
                               itemName.clear();
                               itemPrice.clear();
