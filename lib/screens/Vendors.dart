@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Vendor extends StatefulWidget {
   @override
@@ -20,61 +21,15 @@ class _Vendor extends State<Vendor> {
           ),
         ),
       ),
-      body: Container(
-          height: MediaQuery.of(context).size.height,
-          margin: const EdgeInsets.symmetric(
-            vertical: 16.0,
-            horizontal: 24.0,
-          ),
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                          height: 124.0,
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left: 46.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 10.0,
-                                offset: Offset(0.0, 10.0),
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            "Vendor$index",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 30),
-                            textAlign: TextAlign.center,
-                          )),
-                      planetThumbnail,
-                    ],
-                  ));
-            },
-          )),
+      body: StreamBuilder<DocumentSnapshot>(
+          stream:
+              Firestore.instance.collection("vendor").document().snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            dynamic data = snapshot.data.documentID;
+
+            return Text(data.toString());
+          }),
     );
   }
 }
-
-final planetThumbnail = Container(
-    margin: EdgeInsets.symmetric(vertical: 16.0),
-    alignment: FractionalOffset.centerLeft,
-    child: Container(
-      color: Colors.blue,
-      height: 100,
-      width: 100,
-    ));
-
-// Image(
-//     image: AssetImage("assets/logo/bread.png"),
-//     height: 92.0,
-//     width: 92.0,
-//   ),

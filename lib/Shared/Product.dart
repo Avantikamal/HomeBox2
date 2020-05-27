@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Vendors.dart';
 
-Container detailsContainer(BuildContext context, img, price, name, vendors) {
+Container detailsContainer(BuildContext context, price, name) {
   return Container(
     margin: EdgeInsets.all(15),
     width: MediaQuery.of(context).size.width,
     height: (MediaQuery.of(context).size.height / 2.25),
     child: Wrap(
       children: <Widget>[
-        Center(child: Image.asset('$img')),
-        SizedBox(
-          height: 0.0,
-        ),
         Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,7 +37,7 @@ Container detailsContainer(BuildContext context, img, price, name, vendors) {
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 20.0,
-                        color: Colors.green,
+                        color: Color(0xff61ce70),
                       ))
                 ],
               ),

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/AllCategory.dart';
+import 'package:homebox/screens/bottomNavBar.dart';
+import 'package:homebox/screens/splash.dart';
 
 class VendorList extends StatefulWidget {
   @override
@@ -36,12 +38,17 @@ class _VendorListState extends State<VendorList> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => AllCatagory(
-                                  docID: snapshot
-                                      .data.documents[index].documentID)));
+                      vendorId = snapshot.data.documents[index].documentID;
+                      Firestore.instance
+                          .collection("users")
+                          .document(userID)
+                          .updateData({
+                        "vendor": snapshot.data.documents[index].documentID
+                      }).whenComplete(() => Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => BottomBar()),
+                              (route) => false));
                     },
                     child: Container(
                         margin: EdgeInsets.all(15.0),

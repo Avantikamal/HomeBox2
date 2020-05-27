@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homebox/screens/itemsList.dart';
+import 'package:homebox/screens/splash.dart';
 
 class AllCatagory extends StatefulWidget {
-  String docID;
-  AllCatagory({Key key, @required this.docID}) : super(key: key);
   @override
   _AllCatagory createState() => _AllCatagory();
 }
@@ -29,7 +28,7 @@ class _AllCatagory extends State<AllCatagory> {
         body: StreamBuilder<DocumentSnapshot>(
             stream: Firestore.instance
                 .collection('vendor')
-                .document(widget.docID)
+                .document(vendorId)
                 .snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -54,7 +53,7 @@ class _AllCatagory extends State<AllCatagory> {
                                           MaterialPageRoute(
                                               builder: (context) => Items(
                                                     index: index,
-                                                    DocID: widget.docID,
+                                                    DocID: vendorId,
                                                   )));
                                     },
                                     child: Center(

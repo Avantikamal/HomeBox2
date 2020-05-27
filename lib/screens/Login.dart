@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/LoginVendor.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
+import 'package:homebox/screens/vendorList.dart';
 
 TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
@@ -199,11 +200,15 @@ class _Login extends State<Login> {
 
 verificationCompleted(AuthCredential authCredential, BuildContext context) {
   _auth.signInWithCredential(authCredential).then((value) {
-    Firestore.instance.collection("users").document(value.user.uid).setData(
-        {"name": _name.text, "city": city, "type": "user"}).whenComplete(() {
+    Firestore.instance.collection("users").document(value.user.uid).setData({
+      "name": _name.text,
+      "city": city,
+      "type": "user",
+      "vendor": ""
+    }).whenComplete(() {
       Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => BottomBar()),
+          CupertinoPageRoute(builder: (context) => VendorList()),
           (route) => false);
     });
   });
@@ -304,12 +309,13 @@ Widget otpPage(BuildContext context, String verificationId) {
                               .setData({
                             "name": _name.text,
                             "city": city,
-                            "type": "user"
+                            "type": "user",
+                            "vendor": ""
                           }).whenComplete(() {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => BottomBar()),
+                                    builder: (context) => VendorList()),
                                 (route) => false);
                           });
                           // Firestore.instance

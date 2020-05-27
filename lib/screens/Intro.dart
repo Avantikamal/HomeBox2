@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
-import 'package:homebox/screens/Dashboard.dart';
 import 'package:homebox/screens/Login.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
 import 'package:intro_slider/intro_slider.dart';
