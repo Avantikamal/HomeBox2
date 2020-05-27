@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter/material.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Login.dart';
-
-import 'bottomNavBar.dart';
+import 'package:homebox/screens/vendorList.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,6 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 String userID;
+String vendorId;
 
 class _SplashScreen extends State<SplashScreen> {
   startTime() async {
@@ -24,29 +23,30 @@ class _SplashScreen extends State<SplashScreen> {
   }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  void navigationPage() {
-    _auth.currentUser().then((value) {
-      if (value != null) {
-        print(value.displayName);
-        if (value.displayName == "vendor") {
-          userID = value.uid;
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomBarVendor()),
-              (_) => false);
-        } else {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomBar()),
-              (_) => false);
-        }
-      } else {
+  void navigationPage() async {
+    FirebaseUser user = await _auth.currentUser();
+    if (user != null) {
+      print(user.displayName);
+      if (user.displayName != "vendor") {
+        userID = user.uid;
         Navigator.pushAndRemoveUntil(
             context,
-            CupertinoPageRoute(builder: (context) => Login()),
-            (route) => false);
+            MaterialPageRoute(builder: (context) => BottomBarVendor()),
+            (_) => false);
+      } else {
+        DocumentSnapshot temp = await Firestore.instance
+            .collection("users")
+            .document(user.uid)
+            .get();
+        vendorId = temp.data["vendor"];
+        userID = user.uid;
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => VendorList()), (_) => false);
       }
-    });
+    } else {
+      Navigator.pushAndRemoveUntil(context,
+          CupertinoPageRoute(builder: (context) => Login()), (route) => false);
+    }
   }
 
   @override

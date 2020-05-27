@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:homebox/VendorPart/AddItems.dart';
 import 'package:homebox/VendorPart/MyItems.dart';
-import 'package:homebox/screens/vendorList.dart';
+import 'package:homebox/VendorPart/myOrders.dart';
+import 'package:homebox/screens/Contact.dart';
 import 'package:line_icons/line_icons.dart';
 
 class BottomBarVendor extends StatefulWidget {
@@ -15,7 +16,8 @@ class _BottomBarVendor extends State<BottomBarVendor> {
   List<Widget> _widgetOption = [
     MyItems(),
     AddItems(),
-    VendorList(),
+    Contact(),
+    MyOrders(),
   ];
 
   @override

@@ -3,6 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homebox/screens/AddBoxPage.dart';
 import 'package:homebox/screens/itemsList.dart';
+import 'package:homebox/screens/organicFarms.dart';
+import 'package:homebox/screens/vendorList.dart';
 
 class AllCatagory extends StatefulWidget {
   String docID;
@@ -37,83 +39,58 @@ class _AllCatagory extends State<AllCatagory> {
             List<dynamic> va = snapshot.data.data['items']['category'];
 
             if (snapshot.hasError) return Text('${snapshot.error}');
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(child: SpinKitChasingDots(color: Colors.black));
-              default:
-                return ListView.builder(
-                    itemCount: va.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: <Widget>[
-                          Padding(
-                              padding: EdgeInsets.all(20),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Items(
-                                                  index: index,
-                                                  DocID: widget.docID,
-                                                )));
-                                  },
-                                  child: Center(
-                                      child: Container(
-                                    height:
-                                        MediaQuery.of(context).size.height / 5,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.shade100,
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(10, 10),
-                                              blurRadius: 10),
-                                          BoxShadow(
-                                              color: Colors.white,
-                                              offset: Offset(-5, -5),
-                                              blurRadius: 10)
-                                        ]),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(va[index]
-                                                      ['image']
-                                                  .toString()),
-                                              fit: BoxFit.cover,
-                                            ),
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: va.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(20),
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Items(
+                                                index: index,
+                                                DocID: widget.docID,
+                                              )));
+                                },
+                                child: Center(
+                                    child: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                5,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
                                             color: Colors.grey.shade100,
                                             borderRadius:
                                                 BorderRadius.circular(20),
-                                          ),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.black38,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                        ),
-                                        Center(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey,
+                                                  offset: Offset(10, 10),
+                                                  blurRadius: 10),
+                                              BoxShadow(
+                                                  color: Colors.white,
+                                                  offset: Offset(-5, -5),
+                                                  blurRadius: 10)
+                                            ]),
+                                        child: Center(
                                             child: Text(va[index]['name'],
                                                 style: TextStyle(
-                                                    fontSize: 30,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white)))
-                                      ],
-                                    ),
-                                  ))))
-                        ],
-                      );
-                    });
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.bold,
+                                                )))))))
+                      ],
+                    );
+                  });
+            } else {
+              return Center(
+                child: SpinKitDualRing(color: Colors.black),
+              );
             }
           }),
       drawer: Drawer(
@@ -147,7 +124,7 @@ class _AllCatagory extends State<AllCatagory> {
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AllCatagory(docID: 'TrH35yGujGhwnaeWGhKz6SNPGhp1')));
+                    MaterialPageRoute(builder: (context) => VendorList()));
               },
             ),
             ListTile(
@@ -164,14 +141,14 @@ class _AllCatagory extends State<AllCatagory> {
             ),
             ListTile(
               title: Text(
-                'Organic Farms',
+                'Organico',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                 ),
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AllCatagory(docID: 'TrH35yGujGhwnaeWGhKz6SNPGhp1')));
+                    MaterialPageRoute(builder: (context) => OrganicFarm()));
               },
             ),
 
@@ -191,8 +168,11 @@ class _AllCatagory extends State<AllCatagory> {
                 ),
               ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AllCatagory(docID: 'TrH35yGujGhwnaeWGhKz6SNPGhp1')));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AllCatagory(
+                            docID: 'TrH35yGujGhwnaeWGhKz6SNPGhp1')));
               },
             ),
             Divider(

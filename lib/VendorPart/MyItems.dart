@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:homebox/VendorPart/MyItemList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:homebox/screens/itemsList.dart';
 import 'package:homebox/screens/splash.dart';
 
 class MyItems extends StatefulWidget {
@@ -80,26 +79,19 @@ class _MyItems extends State<MyItems> {
                                         children: <Widget>[
                                           Container(
                                             decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(va[index]
-                                                        ['image']
-                                                    .toString()),
-                                                fit: BoxFit.cover,
-                                              ),
-                                              color: Colors.grey.shade100,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.black38,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
+                                                color: Colors.grey.shade100,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.grey,
+                                                      offset: Offset(10, 10),
+                                                      blurRadius: 10),
+                                                  BoxShadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(-5, -5),
+                                                      blurRadius: 10)
+                                                ]),
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
@@ -109,8 +101,7 @@ class _MyItems extends State<MyItems> {
                                                   style: TextStyle(
                                                       fontSize: 30,
                                                       fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white)))
+                                                          FontWeight.bold,)))
                                         ],
                                       ),
                                     ))))

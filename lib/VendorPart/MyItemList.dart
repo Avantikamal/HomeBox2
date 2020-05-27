@@ -145,6 +145,9 @@ class _MyItemListState extends State<MyItemList> {
                       },
                     );
                   }
+                  else{
+                    return Center(child:Text("No Data"));
+                  }
                 },
               ),
             ),
@@ -307,6 +310,9 @@ class _MyItemListState extends State<MyItemList> {
                                     ],
                                   ));
                             });
+                  }
+                  else{
+                    return Center(child:Text("No Data"));
                   }
                 },
               ),

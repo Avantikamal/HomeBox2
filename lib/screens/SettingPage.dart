@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:homebox/screens/splash.dart';
 
 class Setting extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class Setting extends StatelessWidget {
         body: StreamBuilder<DocumentSnapshot>(
             stream: Firestore.instance
                 .collection("users")
-                .document('727K9wIkrkr1n883RT3Y')
+                .document(userID)
                 .snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<DocumentSnapshot> snapshot) {

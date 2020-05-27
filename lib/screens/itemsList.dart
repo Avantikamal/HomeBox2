@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/Shared/newModel.dart';
+import 'package:homebox/screens/splash.dart';
 
 class Items extends StatefulWidget {
   final int index;
@@ -39,7 +40,7 @@ class _ItemsState extends State<Items> {
               child: StreamBuilder<DocumentSnapshot>(
                 stream: Firestore.instance
                     .collection("vendor")
-                    .document(widget.DocID)
+                    .document(vendorId)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -76,6 +77,9 @@ class _ItemsState extends State<Items> {
                       },
                     );
                   }
+                  else{
+                    return Center(child:Text("No Data"));
+                  }
                 },
               ),
             ),
@@ -86,7 +90,7 @@ class _ItemsState extends State<Items> {
               child: StreamBuilder<DocumentSnapshot>(
                 stream: Firestore.instance
                     .collection("vendor")
-                    .document(widget.DocID)
+                    .document(vendorId)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -164,6 +168,9 @@ class _ItemsState extends State<Items> {
                                   )),
                               );
                             });
+                  }
+                  else{
+                    return Center(child:Text("No Data"));
                   }
                 },
               ),

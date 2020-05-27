@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home:SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => Intro(),
       },

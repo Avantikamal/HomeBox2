@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homebox/screens/Vendors.dart';
 
 Container newdetailsContainer(BuildContext context, quantity, price, name) {
   return Container(

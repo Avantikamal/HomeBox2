@@ -2,11 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/LoginVendor.dart';
-import 'package:homebox/screens/bottomNavBar.dart';
+import 'package:homebox/screens/vendorList.dart';
 
-TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
@@ -18,7 +16,13 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch','Ajmer','Nasirabad'];
+  List<String> _locations = [
+    'Vadodra',
+    'Bhavnagar',
+    'Bharuch',
+    'Ajmer',
+    'Nasirabad'
+  ];
   String _selectedLocation;
 
   @override
@@ -26,7 +30,7 @@ class _Login extends State<Login> {
     return Scaffold(
       body: Container(
           color: Color(0xff61ce70),
-          child: Stack(
+          child: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 50),
@@ -45,7 +49,7 @@ class _Login extends State<Login> {
               Center(
                   child: Container(
                       padding: EdgeInsets.only(top: 40),
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height / 2.3,
                       width: MediaQuery.of(context).size.width - 60,
                       child: Card(
                           shape: RoundedRectangleBorder(
@@ -71,6 +75,8 @@ class _Login extends State<Login> {
                                               border: InputBorder.none,
                                               hintText: 'Enter Your Name'),
                                         ),
+                                        SizedBox(height: 10),
+                                        
                                         SizedBox(height: 10),
                                         TextField(
                                           maxLength: 10,
@@ -104,93 +110,90 @@ class _Login extends State<Login> {
                                             }).toList(),
                                           ),
                                         ),
-                                        SizedBox(height: 20),
-                                        GestureDetector(
-                                          onTap: () {
-                                            if (_phoneController.text.length ==
-                                                    10 ||
-                                                _name.text != null &&
-                                                    _name.text != "") {
-                                              _auth.verifyPhoneNumber(
-                                                  phoneNumber: "+91" +
-                                                      _phoneController.text,
-                                                  timeout:
-                                                      Duration(seconds: 60),
-                                                  verificationCompleted:
-                                                      (authCredential) =>
-                                                          verificationCompleted(
-                                                              authCredential, context),
-                                                  verificationFailed: (authException) =>
-                                                      verificationFailed(
-                                                          authException, context),
-                                                  codeSent: (verificationId, [code]) =>
-                                                      smsSent(verificationId,
-                                                          [code], context),
-                                                  codeAutoRetrievalTimeout:
-                                                      (verificationId) =>
-                                                          print("Enter OTP manually"));
-                                            } else {
-                                              showDialog(
-                                                  context: (context),
-                                                  builder: (context) {
-                                                    return AlertDialog(
-                                                      content: Text(
-                                                          "One or More options are missing"),
-                                                      actions: <Widget>[
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Text("OK"),
-                                                        )
-                                                      ],
-                                                    );
-                                                  });
-                                            }
-                                          },
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xff61ce70),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          40)),
-                                              height: 40,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2,
-                                              child: Center(
-                                                  child: Text(
-                                                "Submit",
-                                                style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ))),
-                                        ),
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) =>
-                                                          LoginVendor()),
-                                                  (route) => false);
-                                            },
-                                            child: Text("Login as Vendor"))
                                       ],
                                     ),
                                   )))))),
+              SizedBox(height: 20),
               GestureDetector(
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(builder: (context) => LoginVendor()),
-                        (route) => false);
-                  },
-                  child: Text("Login as Vendor"))
+                onTap: () {
+                  if (_phoneController.text.length == 10 ||
+                      _name.text != null && _name.text != "") {
+                    _auth.verifyPhoneNumber(
+                        phoneNumber: "+91" + _phoneController.text,
+                        timeout: Duration(seconds: 60),
+                        verificationCompleted: (authCredential) =>
+                            verificationCompleted(authCredential, context),
+                        verificationFailed: (authException) =>
+                            verificationFailed(authException, context),
+                        codeSent: (verificationId, [code]) =>
+                            smsSent(verificationId, [code], context),
+                        codeAutoRetrievalTimeout: (verificationId) =>
+                            print("Enter OTP manually"));
+                  } else {
+                    showDialog(
+                        context: (context),
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text("One or More options are missing"),
+                            actions: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("OK"),
+                              )
+                            ],
+                          );
+                        });
+                  }
+                },
+                child: Padding(
+                    padding: EdgeInsets.only(left: 40, right: 40),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: 40,
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        child: Center(
+                            child: Text(
+                          "Submit",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        )))),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.only(left: 40, right: 40),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => LoginVendor()),
+                          (route) => false);
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: 40,
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        child: Center(
+                            child: Text(
+                          "Login As Vendor",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        )))),
+              )
             ],
           )),
     );
@@ -199,11 +202,15 @@ class _Login extends State<Login> {
 
 verificationCompleted(AuthCredential authCredential, BuildContext context) {
   _auth.signInWithCredential(authCredential).then((value) {
-    Firestore.instance.collection("users").document(value.user.uid).setData(
-        {"name": _name.text, "city": city, "type": "user"}).whenComplete(() {
+    Firestore.instance.collection("users").document(value.user.uid).setData({
+      "name": _name.text,
+      "city": city,
+      "type": "user",
+      "vendor": "",
+    }).whenComplete(() {
       Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => BottomBar()),
+          CupertinoPageRoute(builder: (context) => VendorList()),
           (route) => false);
     });
   });
@@ -304,12 +311,13 @@ Widget otpPage(BuildContext context, String verificationId) {
                               .setData({
                             "name": _name.text,
                             "city": city,
-                            "type": "user"
+                            "type": "user",
+                            "vendor": "",
                           }).whenComplete(() {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => BottomBar()),
+                                    builder: (context) => VendorList()),
                                 (route) => false);
                           });
                           // Firestore.instance

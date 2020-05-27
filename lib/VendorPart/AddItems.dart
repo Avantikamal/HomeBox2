@@ -11,14 +11,10 @@ class AddItems extends StatefulWidget {
 TextEditingController itemName = new TextEditingController();
 TextEditingController itemPrice = new TextEditingController();
 TextEditingController quantity = new TextEditingController();
+TextEditingController productId = new TextEditingController();
+
 
 class _AddItems extends State<AddItems> {
-  bool _selectIndex = false,
-      _selectIndex2 = false,
-      _selectIndex3 = false,
-      _selectIndex4 = false,
-      _selectIndex5 = false,
-      _selectIndex6 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +58,24 @@ class _AddItems extends State<AddItems> {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(10.0)),
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(10, 10),
+                                  blurRadius: 10),
+                              BoxShadow(
+                                  color: Colors.white,
+                                  offset: Offset(-5, -5),
+                                  blurRadius: 10)
+                            ]),
                         child: Center(
-                          child: Text(data[index]["name"]),
+                          child: Text(
+                            data[index]["name"],
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     );
@@ -84,6 +94,17 @@ class _AddItems extends State<AddItems> {
 
 Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
   return Scaffold(
+    appBar: AppBar(
+          elevation: 5.0,
+          centerTitle: true,
+          title: Text(
+            'HomeBox',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
     body: ListView.builder(
       itemCount: data[index]["subcategory"].length,
       itemBuilder: (context, int i) {
@@ -113,6 +134,11 @@ Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
                           decoration:
                               InputDecoration(hintText: "Enter Quantity"),
                         ),
+                        TextField(
+                          controller: productId,
+                          decoration:
+                              InputDecoration(hintText: "Enter Product Id"),
+                        ),
                         RaisedButton(
                           onPressed: () async {
                             FirebaseUser user =
@@ -125,7 +151,8 @@ Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
                             temp[index]["subcategory"][i]["items"].add({
                               "name": itemName.text,
                               "price": itemPrice.text,
-                              "quantity": quantity.text
+                              "quantity": quantity.text,
+                              "productId":productId.text
                             });
                             Firestore.instance
                                 .collection("vendor")
@@ -151,13 +178,25 @@ Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
           child: Container(
             margin: EdgeInsets.all(10.0),
             width: 300,
-            height: 200,
+            height: MediaQuery.of(context).size.height / 6,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.green,
-            ),
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(10, 10),
+                      blurRadius: 10),
+                  BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-5, -5),
+                      blurRadius: 10)
+                ]),
             child: Center(
-              child: Text(data[index]["subcategory"][i]["name"]),
+              child: Text(
+                data[index]["subcategory"][i]["name"],
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
             ),
           ),
         );

@@ -7,7 +7,6 @@ import 'package:homebox/screens/Login.dart';
 import 'package:homebox/screens/splash.dart';
 import '../VendorPart/bottomBar.dart';
 
-TextEditingController _codeController = new TextEditingController();
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
@@ -22,19 +21,25 @@ class LoginVendor extends StatefulWidget {
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class _LoginVendor extends State<LoginVendor> {
-  List<String> _locations = ['Vadodra', 'Bhavnagar', 'Bharuch','Ajmer','Nasirabad'];
+  List<String> _locations = [
+    'Vadodra',
+    'Bhavnagar',
+    'Bharuch',
+    'Ajmer',
+    'Nasirabad'
+  ];
   String _selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
           color: Color(0xFF61ce70),
-          child: Stack(
+          child: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                   child: Text(
                     "\tLogin",
                     style: TextStyle(
@@ -44,6 +49,7 @@ class _LoginVendor extends State<LoginVendor> {
                   ),
                 ),
               ),
+              SizedBox(height: 30),
               Center(
                   child: Container(
                       padding: EdgeInsets.only(top: 40),
@@ -115,93 +121,91 @@ class _LoginVendor extends State<LoginVendor> {
                                             }).toList(),
                                           ),
                                         ),
-                                        SizedBox(height: 20),
-                                        GestureDetector(
-                                          onTap: () {
-                                            if (_phoneController.text.length ==
-                                                    10 ||
-                                                _name.text != null &&
-                                                    _name.text != "" ||
-                                                key == _keyController.text) {
-                                              _auth.verifyPhoneNumber(
-                                                  phoneNumber: "+91" +
-                                                      _phoneController.text,
-                                                  timeout:
-                                                      Duration(seconds: 60),
-                                                  verificationCompleted:
-                                                      (authCredential) =>
-                                                          verificationCompleted(
-                                                              authCredential, context),
-                                                  verificationFailed: (authException) =>
-                                                      verificationFailed(
-                                                          authException, context),
-                                                  codeSent: (verificationId, [code]) =>
-                                                      smsSent(verificationId,
-                                                          [code], context),
-                                                  codeAutoRetrievalTimeout:
-                                                      (verificationId) =>
-                                                          print("Enter OTP manually"));
-                                            } else {
-                                              showDialog(
-                                                  context: (context),
-                                                  builder: (context) {
-                                                    return AlertDialog(
-                                                      content: Text(
-                                                          "One or More options are missing Or Key is invalid"),
-                                                      actions: <Widget>[
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Text("OK"),
-                                                        )
-                                                      ],
-                                                    );
-                                                  });
-                                            }
-
-                                            // Navigator.pushAndRemoveUntil(
-                                            //     context,
-                                            //     CupertinoPageRoute(
-                                            //         builder: (context) =>
-                                            //             BottomBarVendor()),
-                                            //     (route) => false);
-                                          },
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.pink,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          40)),
-                                              height: 40,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2,
-                                              child: Center(
-                                                  child: Text(
-                                                "Submit",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ))),
-                                        ),
-                                        SizedBox(height: 20),
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) =>
-                                                          Login()),
-                                                  (route) => false);
-                                            },
-                                            child: Text("Login as User"))
                                       ],
                                     ),
                                   )))))),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  if (_phoneController.text.length == 10 ||
+                      _name.text != null && _name.text != "" ||
+                      key == _keyController.text) {
+                    _auth.verifyPhoneNumber(
+                        phoneNumber: "+91" + _phoneController.text,
+                        timeout: Duration(seconds: 60),
+                        verificationCompleted: (authCredential) =>
+                            verificationCompleted(authCredential, context),
+                        verificationFailed: (authException) =>
+                            verificationFailed(authException, context),
+                        codeSent: (verificationId, [code]) =>
+                            smsSent(verificationId, [code], context),
+                        codeAutoRetrievalTimeout: (verificationId) =>
+                            print("Enter OTP manually"));
+                  } else {
+                    showDialog(
+                        context: (context),
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(
+                                "One or More options are missing Or Key is invalid"),
+                            actions: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("OK"),
+                              )
+                            ],
+                          );
+                        });
+                  }
+
+                  // Navigator.pushAndRemoveUntil(
+                  //     context,
+                  //     CupertinoPageRoute(
+                  //         builder: (context) =>
+                  //             BottomBarVendor()),
+                  //     (route) => false);
+                },
+                child: Padding(
+                    padding: EdgeInsets.only(left: 40, right: 40),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(40)),
+                        height: 40,
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        child: Center(
+                            child: Text(
+                          "Submit",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        )))),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.only(left: 40, right: 40),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(builder: (context) => Login()),
+                        (route) => false);
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(40)),
+                      height: 40,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Center(
+                          child: Text(
+                        "Login As User",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ))),
+                ),
+              )
             ],
           )),
     );

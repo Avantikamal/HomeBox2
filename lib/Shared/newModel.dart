@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:homebox/Shared/newProduct.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homebox/screens/splash.dart';
 
 int counter = 0;
 void newsettingModalBottomSheet(BuildContext context, quantity, price, name) {
@@ -68,7 +69,7 @@ void newsettingModalBottomSheet(BuildContext context, quantity, price, name) {
                       });
                       Firestore.instance
                           .collection("users")
-                          .document('727K9wIkrkr1n883RT3Y')
+                          .document(userID)
                           .updateData({"carty": FieldValue.arrayUnion(cart)});
                       Fluttertoast.showToast(
                           msg: "Items Added to Cart",
