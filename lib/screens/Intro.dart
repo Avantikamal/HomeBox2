@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Login.dart';
-import 'package:homebox/screens/cechkz.dart';
+import 'package:homebox/screens/bottomNavBar.dart';
+import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:intro_slider/dot_animation_enum.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class Intro extends StatefulWidget {
   @override
@@ -15,19 +16,25 @@ final auth = FirebaseAuth.instance;
 // final reference = FirebaseDatabase.instance.reference();
 
 class _Intro extends State<Intro> {
-
-void check() {
+  void check() {
     auth.currentUser().then((value) {
       if (value != null) {
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => BottomBar()), (_) => false);
+        if (value.displayName == "vendor") {
           Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => exeute()),
-                (_) => false);
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarVendor()),
+              (_) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBar()),
+              (_) => false);
+        }
       } else {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) =>Login()),
-            (_) => false);
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => Login()), (_) => false);
       }
     });
   }
@@ -40,15 +47,15 @@ void check() {
 
     slides.add(
       new Slide(
-        title: "NearBy Vendors",
+        title: "Order from your Home",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Color(0xff61ce70),
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description: "Content",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
@@ -57,15 +64,32 @@ void check() {
     );
     slides.add(
       new Slide(
-        title: "Delivery Boy",
+        title: "NearBy Vendors",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Color(0xff61ce70),
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description: "Content",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
+            fontSize: 20.0,
+            fontStyle: FontStyle.italic,
+            fontFamily: 'Raleway'),
+        pathImage: "assets/logo/food.png",
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Delivery at your Doorstep",
+        styleTitle: TextStyle(
+            color: Color(0xff61ce70),
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono'),
+        description: "Content",
+        styleDescription: TextStyle(
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
@@ -75,8 +99,7 @@ void check() {
   }
 
   void onDonePress() {
-    // Back to the first tab
-    this.goToTab(0);
+          check();
   }
 
   void onTabChangeCompleted(index) {
@@ -90,7 +113,7 @@ void check() {
   Widget renderDoneBtn() {
     return GestureDetector(
         onTap: () {
-        check();
+          check();
         },
         child: Text("Done"));
   }
@@ -151,8 +174,8 @@ void check() {
 
       // Skip button
       renderSkipBtn: this.renderSkipBtn(),
-      colorSkipBtn: Color(0x33ffcc5c),
-      highlightColorSkipBtn: Color(0xffffcc5c),
+      colorSkipBtn: Color(0xff61ce70),
+      highlightColorSkipBtn: Color(0xff61ce70),
 
       // Next button
       renderNextBtn: this.renderNextBtn(),
@@ -160,13 +183,13 @@ void check() {
       // Done button
       renderDoneBtn: this.renderDoneBtn(),
       onDonePress: this.onDonePress,
-      colorDoneBtn: Color(0x33ffcc5c),
-      highlightColorDoneBtn: Color(0xffffcc5c),
+      colorDoneBtn: Color(0xff61ce70),
+      highlightColorDoneBtn: Color(0xff61ce70),
 
       // Dot indicator
-      colorDot: Color(0xffffcc5c),
-      sizeDot: 13.0,
-      typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
+      colorDot: Color(0xff61ce70),
+      sizeDot: 15.0,
+      typeDotAnimation: dotSliderAnimation.DOT_MOVEMENT,
 
       // Tabs
       listCustomTabs: this.renderListCustomTabs(),

@@ -1,0 +1,206 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class AddItems extends StatefulWidget {
+  @override
+  _AddItems createState() => _AddItems();
+}
+
+TextEditingController itemName = new TextEditingController();
+TextEditingController itemPrice = new TextEditingController();
+TextEditingController quantity = new TextEditingController();
+TextEditingController productId = new TextEditingController();
+
+
+class _AddItems extends State<AddItems> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.grey.shade100,
+        appBar: AppBar(
+          elevation: 5.0,
+          centerTitle: true,
+          title: Text(
+            'HomeBox',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: Firestore.instance
+                .collection("category")
+                .document("example")
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<dynamic> data = snapshot.data.data["items"]["category"];
+                return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    SubCategory(context, data, index)));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(20.0),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(10, 10),
+                                  blurRadius: 10),
+                              BoxShadow(
+                                  color: Colors.white,
+                                  offset: Offset(-5, -5),
+                                  blurRadius: 10)
+                            ]),
+                        child: Center(
+                          child: Text(
+                            data[index]["name"],
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ));
+  }
+}
+
+Widget SubCategory(BuildContext context, List<dynamic> data, int index) {
+  return Scaffold(
+    appBar: AppBar(
+          elevation: 5.0,
+          centerTitle: true,
+          title: Text(
+            'HomeBox',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+    body: ListView.builder(
+      itemCount: data[index]["subcategory"].length,
+      itemBuilder: (context, int i) {
+        return GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    height: 300,
+                    child: Column(
+                      children: <Widget>[
+                        TextField(
+                          controller: itemName,
+                          decoration: InputDecoration(hintText: "Enter Name"),
+                        ),
+                        TextField(
+                          controller: itemPrice,
+                          decoration: InputDecoration(hintText: "Enter Price"),
+                        ),
+                        TextField(
+                          controller: quantity,
+                          decoration:
+                              InputDecoration(hintText: "Enter Quantity"),
+                        ),
+                        TextField(
+                          controller: productId,
+                          decoration:
+                              InputDecoration(hintText: "Enter Product Id"),
+                        ),
+                        RaisedButton(
+                          onPressed: () async {
+                            FirebaseUser user =
+                                await FirebaseAuth.instance.currentUser();
+                            DocumentSnapshot map = await Firestore.instance
+                                .collection("vendor")
+                                .document(user.uid)
+                                .get();
+                            List<dynamic> temp = map.data["items"]["category"];
+                            temp[index]["subcategory"][i]["items"].add({
+                              "name": itemName.text,
+                              "price": itemPrice.text,
+                              "quantity": quantity.text,
+                              "productId":productId.text
+                            });
+                            Firestore.instance
+                                .collection("vendor")
+                                .document(user.uid)
+                                .updateData({
+                              "items": {"category": temp}
+                            }).whenComplete(() {
+                              itemName.clear();
+                              itemPrice.clear();
+                              quantity.clear();
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: Text("Submit"),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: Container(
+            margin: EdgeInsets.all(10.0),
+            width: 300,
+            height: MediaQuery.of(context).size.height / 6,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(10, 10),
+                      blurRadius: 10),
+                  BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-5, -5),
+                      blurRadius: 10)
+                ]),
+            child: Center(
+              child: Text(
+                data[index]["subcategory"][i]["name"],
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+  );
+}

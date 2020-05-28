@@ -1,21 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:homebox/screens/LoginVendor.dart';
-import 'package:homebox/screens/vendorList.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
+import 'package:homebox/screens/Login.dart';
+import 'package:homebox/screens/splash.dart';
+import '../VendorPart/bottomBar.dart';
 
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
 String city;
-FirebaseAuth _auth = FirebaseAuth.instance;
+TextEditingController _keyController = new TextEditingController();
+String key = "homebox";
 
-class Login extends StatefulWidget {
+class LoginVendor extends StatefulWidget {
   @override
-  _Login createState() => _Login();
+  _LoginVendor createState() => _LoginVendor();
 }
 
-class _Login extends State<Login> {
+FirebaseAuth _auth = FirebaseAuth.instance;
+
+class _LoginVendor extends State<LoginVendor> {
   List<String> _locations = [
     'Vadodra',
     'Bhavnagar',
@@ -24,32 +29,31 @@ class _Login extends State<Login> {
     'Nasirabad'
   ];
   String _selectedLocation;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: Color(0xff61ce70),
+          color: Color(0xFF61ce70),
           child: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Align(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topCenter,
                   child: Text(
                     "\tLogin",
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Poppins',
                         fontSize: 50,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
+              SizedBox(height: 30),
               Center(
                   child: Container(
                       padding: EdgeInsets.only(top: 40),
-                      height: MediaQuery.of(context).size.height / 2.3,
+                      height: MediaQuery.of(context).size.height / 2,
                       width: MediaQuery.of(context).size.width - 60,
                       child: Card(
                           shape: RoundedRectangleBorder(
@@ -76,8 +80,6 @@ class _Login extends State<Login> {
                                               hintText: 'Enter Your Name'),
                                         ),
                                         SizedBox(height: 10),
-                                        
-                                        SizedBox(height: 10),
                                         TextField(
                                           maxLength: 10,
                                           keyboardType: TextInputType.number,
@@ -87,6 +89,15 @@ class _Login extends State<Login> {
                                                   Icons.format_list_numbered),
                                               border: InputBorder.none,
                                               hintText: 'Enter Your Number'),
+                                        ),
+                                        SizedBox(height: 10),
+                                        TextField(
+                                          maxLength: 10,
+                                          controller: _keyController,
+                                          decoration: InputDecoration(
+                                              icon: new Icon(Icons.vpn_key),
+                                              border: InputBorder.none,
+                                              hintText: 'Enter Your Unique ID'),
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -117,7 +128,8 @@ class _Login extends State<Login> {
               GestureDetector(
                 onTap: () {
                   if (_phoneController.text.length == 10 ||
-                      _name.text != null && _name.text != "") {
+                      _name.text != null && _name.text != "" ||
+                      key == _keyController.text) {
                     _auth.verifyPhoneNumber(
                         phoneNumber: "+91" + _phoneController.text,
                         timeout: Duration(seconds: 60),
@@ -134,7 +146,8 @@ class _Login extends State<Login> {
                         context: (context),
                         builder: (context) {
                           return AlertDialog(
-                            content: Text("One or More options are missing"),
+                            content: Text(
+                                "One or More options are missing Or Key is invalid"),
                             actions: <Widget>[
                               GestureDetector(
                                 onTap: () {
@@ -146,53 +159,52 @@ class _Login extends State<Login> {
                           );
                         });
                   }
+
+                  // Navigator.pushAndRemoveUntil(
+                  //     context,
+                  //     CupertinoPageRoute(
+                  //         builder: (context) =>
+                  //             BottomBarVendor()),
+                  //     (route) => false);
                 },
                 child: Padding(
                     padding: EdgeInsets.only(left: 40, right: 40),
                     child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(40)),
                         height: 40,
                         width: MediaQuery.of(context).size.width / 1.5,
                         child: Center(
                             child: Text(
                           "Submit",
                           style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         )))),
               ),
               SizedBox(height: 20),
               Padding(
                 padding: EdgeInsets.only(left: 40, right: 40),
                 child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => LoginVendor()),
-                          (route) => false);
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        height: 40,
-                        width: MediaQuery.of(context).size.width / 1.5,
-                        child: Center(
-                            child: Text(
-                          "Login As Vendor",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )))),
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(builder: (context) => Login()),
+                        (route) => false);
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(40)),
+                      height: 40,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Center(
+                          child: Text(
+                        "Login As User",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ))),
+                ),
               )
             ],
           )),
@@ -202,16 +214,43 @@ class _Login extends State<Login> {
 
 verificationCompleted(AuthCredential authCredential, BuildContext context) {
   _auth.signInWithCredential(authCredential).then((value) {
-    Firestore.instance.collection("users").document(value.user.uid).setData({
-      "name": _name.text,
-      "city": city,
-      "type": "user",
-      "vendor": "",
-    }).whenComplete(() {
-      Navigator.pushAndRemoveUntil(
-          context,
-          CupertinoPageRoute(builder: (context) => VendorList()),
-          (route) => false);
+    Firestore.instance
+        .collection("vendor")
+        .document(value.user.uid)
+        .get()
+        .then((doc) {
+      userID = value.user.uid;
+      if (doc.data != null) {
+        Navigator.push(context,
+            CupertinoPageRoute(builder: (context) => BottomBarVendor()));
+      } else {
+        List<dynamic> temp = [];
+        Firestore.instance
+            .collection("category")
+            .document("example")
+            .get()
+            .then((snap) {
+          temp = snap.data["items"]["category"];
+          Firestore.instance
+              .collection("vendor")
+              .document(value.user.uid)
+              .setData({
+            "name": _name.text,
+            "city": city,
+            "type": "vendor",
+            "items": {"category": temp}
+          }).whenComplete(() {
+            UserUpdateInfo update = new UserUpdateInfo();
+            update.displayName = "vendor";
+            value.user.updateProfile(update);
+            value.user.reload();
+            Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => BottomBarVendor()),
+                (route) => false);
+          });
+        });
+      }
     });
   });
 }
@@ -295,7 +334,7 @@ Widget otpPage(BuildContext context, String verificationId) {
                     elevation: 0.0,
                     child: MaterialButton(
                       onPressed: () async {
-                        // Implement login functionality.
+                        //Implement login functionality.
                         // Fluttertoast.showToast(
                         //     msg: "Please Wait", timeInSecForIosWeb: 3);
                         final AuthCredential credential =
@@ -306,20 +345,48 @@ Widget otpPage(BuildContext context, String verificationId) {
                             .signInWithCredential(credential)
                             .then((value) {
                           Firestore.instance
-                              .collection("users")
+                              .collection("vendor")
                               .document(value.user.uid)
-                              .setData({
-                            "name": _name.text,
-                            "city": city,
-                            "type": "user",
-                            "vendor": "",
-                          }).whenComplete(() {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => VendorList()),
-                                (route) => false);
+                              .get()
+                              .then((doc) {
+                            userID = value.user.uid;
+                            if (doc.data != null) {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => BottomBarVendor()));
+                            } else {
+                              List<dynamic> temp = [];
+                              Firestore.instance
+                                  .collection("category")
+                                  .document("example")
+                                  .get()
+                                  .then((snap) {
+                                temp = snap.data["items"]["category"];
+                                Firestore.instance
+                                    .collection("vendor")
+                                    .document(value.user.uid)
+                                    .setData({
+                                  "name": _name.text,
+                                  "city": city,
+                                  "type": "vendor",
+                                  "items": {"category": temp}
+                                }).whenComplete(() {
+                                  UserUpdateInfo update = new UserUpdateInfo();
+                                  update.displayName = "vendor";
+                                  value.user.updateProfile(update);
+                                  value.user.reload();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              BottomBarVendor()),
+                                      (route) => false);
+                                });
+                              });
+                            }
                           });
+
                           // Firestore.instance
                           //     .collection("users")
                           //     .document(value.user.uid)
