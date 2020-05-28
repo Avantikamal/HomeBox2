@@ -1,12 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
+import 'package:homebox/screens/Login.dart';
+import 'package:homebox/screens/vendorList.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreen createState() => _SplashScreen();
 }
+
+String userID;
+String vendorId;
 
 class _SplashScreen extends State<SplashScreen> {
   startTime() async {
@@ -14,8 +22,31 @@ class _SplashScreen extends State<SplashScreen> {
     return Timer(_duration, navigationPage);
   }
 
-  void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/HomeScreen');
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  void navigationPage() async {
+    FirebaseUser user = await _auth.currentUser();
+    if (user != null) {
+      print(user.displayName);
+      if (user.displayName != "vendor") {
+        userID = user.uid;
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => BottomBarVendor()),
+            (_) => false);
+      } else {
+        DocumentSnapshot temp = await Firestore.instance
+            .collection("users")
+            .document(user.uid)
+            .get();
+        vendorId = temp.data["vendor"];
+        userID = user.uid;
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => VendorList()), (_) => false);
+      }
+    } else {
+      Navigator.pushAndRemoveUntil(context,
+          CupertinoPageRoute(builder: (context) => Login()), (route) => false);
+    }
   }
 
   @override
@@ -31,16 +62,18 @@ class _SplashScreen extends State<SplashScreen> {
             padding: EdgeInsets.only(left: 50, right: 50, bottom: 50),
             child: Container(
               color: Color(0xff61ce70),
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/logo/logo1.png'))),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Center(child: SpinKitFadingCube(color: Colors.black))
-                  ],
-                ),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/logo/logo1.png'))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Center(
+                      child: SpinKitFadingCube(
+                    color: Colors.black,
+                    size: 25.0,
+                  ))
+                ],
               ),
             )));
   }
