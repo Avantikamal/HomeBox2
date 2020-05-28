@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
@@ -47,6 +49,48 @@ class _Intro extends State<Intro> {
 
     slides.add(
       new Slide(
+        title: "ORGANICO",
+        styleTitle: TextStyle(
+          color: Color(0xff61ce70),
+          fontSize: 42.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow( // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Colors.black
+            ),
+            Shadow( // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Colors.black
+            ),
+            Shadow( // topRight
+                offset: Offset(1.0, 1.0),
+                color: Colors.black
+            ),
+            Shadow( // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Colors.black
+            ),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
+        description: '''
+HomeBox introduces ORGANICO.
+Now Get your Organic items
+delivered at your doorstep.
+Eat Organic, Stay Healthy.''',
+        styleDescription: TextStyle(
+            color: Colors.black, fontSize: 14.0, fontFamily: 'Poppins'),
+        pathImage: "assets/images/organic-food.png",
+      ),
+    );
+
+    slides.add(
+      new Slide(
         title: "Order from your Home",
         styleTitle: TextStyle(
             color: Color(0xff61ce70),
@@ -62,6 +106,7 @@ class _Intro extends State<Intro> {
         pathImage: "assets/logo/food.png",
       ),
     );
+
     slides.add(
       new Slide(
         title: "NearBy Vendors",
@@ -79,6 +124,7 @@ class _Intro extends State<Intro> {
         pathImage: "assets/logo/food.png",
       ),
     );
+
     slides.add(
       new Slide(
         title: "Delivery at your Doorstep",
@@ -99,7 +145,7 @@ class _Intro extends State<Intro> {
   }
 
   void onDonePress() {
-          check();
+    check();
   }
 
   void onTabChangeCompleted(index) {
@@ -168,41 +214,44 @@ class _Intro extends State<Intro> {
 
   @override
   Widget build(BuildContext context) {
-    return new IntroSlider(
-      // List slides
-      slides: this.slides,
+    return SafeArea(
+      child: new IntroSlider(
+        // List slides
+        slides: this.slides,
 
-      // Skip button
-      renderSkipBtn: this.renderSkipBtn(),
-      colorSkipBtn: Color(0xff61ce70),
-      highlightColorSkipBtn: Color(0xff61ce70),
+        // Skip button
+        renderSkipBtn: this.renderSkipBtn(),
+        colorSkipBtn: Color(0xff61ce70),
+        highlightColorSkipBtn: Color(0xff61ce70),
 
-      // Next button
-      renderNextBtn: this.renderNextBtn(),
+        // Next button
+        renderNextBtn: this.renderNextBtn(),
 
-      // Done button
-      renderDoneBtn: this.renderDoneBtn(),
-      onDonePress: this.onDonePress,
-      colorDoneBtn: Color(0xff61ce70),
-      highlightColorDoneBtn: Color(0xff61ce70),
+        // Done button
+        renderDoneBtn: this.renderDoneBtn(),
+        onDonePress: this.onDonePress,
+        colorDoneBtn: Color(0xff61ce70),
+        highlightColorDoneBtn: Color(0xff61ce70),
 
-      // Dot indicator
-      colorDot: Color(0xff61ce70),
-      sizeDot: 15.0,
-      typeDotAnimation: dotSliderAnimation.DOT_MOVEMENT,
+        // Dot indicator
+        colorDot: Colors.black12,
+        colorActiveDot: Color(0xff61ce70),
+        sizeDot: 15.0,
+        typeDotAnimation: dotSliderAnimation.DOT_MOVEMENT,
 
-      // Tabs
-      listCustomTabs: this.renderListCustomTabs(),
-      backgroundColorAllSlides: Colors.white,
-      refFuncGoToTab: (refFunc) {
-        this.goToTab = refFunc;
-      },
+        // Tabs
+        listCustomTabs: this.renderListCustomTabs(),
+        backgroundColorAllSlides: Colors.white,
+        refFuncGoToTab: (refFunc) {
+          this.goToTab = refFunc;
+        },
 
-      // Show or hide status bar
-      shouldHideStatusBar: true,
+        // Show or hide status bar
+        shouldHideStatusBar: true,
 
-      // On tab change completed
-      onTabChangeCompleted: this.onTabChangeCompleted,
+        // On tab change completed
+        onTabChangeCompleted: this.onTabChangeCompleted,
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Intro.dart';
-import 'package:homebox/screens/splash.dart';
+
 void main() => runApp(MyApp());
 
 // ignore: must_be_immutable
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home:SplashScreen(),
+      home: Intro(),
       routes: <String, WidgetBuilder>{
         '/HomeScreen': (BuildContext context) => Intro(),
       },

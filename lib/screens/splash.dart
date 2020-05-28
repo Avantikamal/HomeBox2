@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Login.dart';
 import 'package:homebox/screens/vendorList.dart';
@@ -40,8 +41,10 @@ class _SplashScreen extends State<SplashScreen> {
             .get();
         vendorId = temp.data["vendor"];
         userID = user.uid;
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => VendorList()), (_) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => VendorList()),
+            (_) => false);
       }
     } else {
       Navigator.pushAndRemoveUntil(context,
@@ -61,7 +64,6 @@ class _SplashScreen extends State<SplashScreen> {
         body: Padding(
             padding: EdgeInsets.only(left: 50, right: 50, bottom: 50),
             child: Container(
-              color: Color(0xff61ce70),
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/logo/logo1.png'))),
