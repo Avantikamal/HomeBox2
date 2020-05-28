@@ -22,6 +22,9 @@ class Contact extends StatelessWidget {
         child: Center(
           child: Column(
             children: <Widget>[
+              SizedBox(
+                height: 30,
+              ),
               ContactUs(
                 cardColor: Theme.of(context).accentColor,
                 companyColor: Theme.of(context).accentColor,

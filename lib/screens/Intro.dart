@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Login.dart';
 import 'package:homebox/screens/bottomNavBar.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
@@ -20,6 +21,17 @@ class _Intro extends State<Intro> {
       if (value != null) {
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (context) => BottomBar()), (_) => false);
+        if (value.displayName == "vendor") {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBarVendor()),
+              (_) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomBar()),
+              (_) => false);
+        }
       } else {
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (context) => Login()), (_) => false);
@@ -87,8 +99,7 @@ class _Intro extends State<Intro> {
   }
 
   void onDonePress() {
-    // Back to the first tab
-    this.goToTab(0);
+          check();
   }
 
   void onTabChangeCompleted(index) {
