@@ -27,6 +27,7 @@ Container detailsContainer(BuildContext context, price, index) {
                   TextField(
                     controller: address,
                     decoration: InputDecoration(hintText: "Enter Address"),
+                    maxLines: 4,
                   ),
                   SizedBox(height: 20),
                   Text(

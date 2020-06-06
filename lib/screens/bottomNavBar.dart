@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:homebox/screens/AddBoxPage.dart';
-import 'package:homebox/screens/AllCategory.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:homebox/screens/Contact.dart';
-import 'package:homebox/screens/SettingPage.dart';
 import 'package:line_icons/line_icons.dart';
 
 class BottomBar extends StatefulWidget {
@@ -15,7 +12,10 @@ class _BottomBar extends State<BottomBar> {
   int _selectedIndex = 0;
   List<Widget> _widgetOption = [
     AllCatagory(docID: 'TrH35yGujGhwnaeWGhKz6SNPGhp1'),
-     AddBox(), Contact(), Setting()];
+    AddBox(),
+    Contact(),
+    Setting(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

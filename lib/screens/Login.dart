@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:homebox/screens/LoginVendor.dart';
-import 'package:homebox/screens/vendorList.dart';
+import 'package:flutter/material.dart';
 
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
@@ -27,11 +25,19 @@ class _Login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          color: Color(0xff61ce70),
-          child: ListView(
+    return SafeArea(
+      child: Center(
+        child: Scaffold(
+          backgroundColor: Theme.of(context).primaryColor,
+          body: Stack(
+            fit: StackFit.expand,
             children: <Widget>[
+              Image(
+                image: AssetImage('assets/images/organic-food.png'),
+                fit: BoxFit.cover,
+                color: Colors.black87,
+                colorBlendMode: BlendMode.darken,
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Align(
@@ -39,80 +45,84 @@ class _Login extends State<Login> {
                   child: Text(
                     "\tLogin",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).accentColor,
                         fontFamily: 'Poppins',
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 42,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                              // bottomLeft
+                              offset: Offset(-1.0, -1.0),
+                              color: Colors.black),
+                          Shadow(
+                              // bottomRight
+                              offset: Offset(1.0, -1.0),
+                              color: Colors.black),
+                          Shadow(
+                              // topRight
+                              offset: Offset(1.0, 1.0),
+                              color: Colors.black),
+                          Shadow(
+                              // topLeft
+                              offset: Offset(-1.0, 1.0),
+                              color: Colors.black),
+                        ]),
                   ),
                 ),
               ),
-              Center(
-                  child: Container(
-                      padding: EdgeInsets.only(top: 40),
-                      height: MediaQuery.of(context).size.height / 2.3,
-                      width: MediaQuery.of(context).size.width - 60,
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 1.0,
-                            ),
-                          ),
-                          elevation: 10,
-                          child: Center(
-                              child: Padding(
-                                  padding: EdgeInsets.only(left: 20, right: 20),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        TextFormField(
-                                          controller: _name,
-                                          decoration: InputDecoration(
-                                              icon: new Icon(Icons.text_fields),
-                                              border: InputBorder.none,
-                                              hintText: 'Enter Your Name'),
-                                        ),
-                                        SizedBox(height: 10),
-                                        
-                                        SizedBox(height: 10),
-                                        TextField(
-                                          maxLength: 10,
-                                          keyboardType: TextInputType.number,
-                                          controller: _phoneController,
-                                          decoration: InputDecoration(
-                                              icon: new Icon(
-                                                  Icons.format_list_numbered),
-                                              border: InputBorder.none,
-                                              hintText: 'Enter Your Number'),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Center(
-                                          child: DropdownButton(
-                                            hint: Text(
-                                                'Please choose a location'), // Not necessary for Option 1
-                                            value: _selectedLocation,
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                _selectedLocation = newValue;
-                                                city = newValue;
-                                              });
-                                            },
-                                            items: _locations.map((location) {
-                                              return DropdownMenuItem(
-                                                child: new Text(location),
-                                                value: location,
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )))))),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 50.0, left: 40.0, right: 40.0, bottom: 100.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Center(
+                      child: TextFormField(
+                        controller: _name,
+                        decoration: InputDecoration(
+                            icon: new Icon(Icons.text_fields),
+                            border: InputBorder.none,
+                            hintText: 'Enter Your Name'),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: TextField(
+                        maxLength: 10,
+                        keyboardType: TextInputType.number,
+                        controller: _phoneController,
+                        decoration: InputDecoration(
+                            icon: new Icon(Icons.format_list_numbered),
+                            border: InputBorder.none,
+                            hintText: 'Enter Your Number'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: DropdownButton(
+                        icon: Icon(Icons.location_city),
+                        hint: Text(
+                            'Please choose a location'), // Not necessary for Option 1
+                        value: _selectedLocation,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedLocation = newValue;
+                            city = newValue;
+                          });
+                        },
+                        items: _locations.map((location) {
+                          return DropdownMenuItem(
+                            child: new Text(location),
+                            value: location,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
@@ -166,36 +176,10 @@ class _Login extends State<Login> {
                               fontSize: 15),
                         )))),
               ),
-              SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.only(left: 40, right: 40),
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => LoginVendor()),
-                          (route) => false);
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        height: 40,
-                        width: MediaQuery.of(context).size.width / 1.5,
-                        child: Center(
-                            child: Text(
-                          "Login As Vendor",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )))),
-              )
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -208,10 +192,10 @@ verificationCompleted(AuthCredential authCredential, BuildContext context) {
       "type": "user",
       "vendor": "",
     }).whenComplete(() {
-      Navigator.pushAndRemoveUntil(
+      /*Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(builder: (context) => VendorList()),
-          (route) => false);
+          (route) => false);*/
     });
   });
 }
@@ -314,11 +298,11 @@ Widget otpPage(BuildContext context, String verificationId) {
                             "type": "user",
                             "vendor": "",
                           }).whenComplete(() {
-                            Navigator.pushAndRemoveUntil(
+                            /*Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
                                     builder: (context) => VendorList()),
-                                (route) => false);
+                                (route) => false);*/
                           });
                           // Firestore.instance
                           //     .collection("users")

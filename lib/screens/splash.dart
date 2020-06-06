@@ -1,82 +1,126 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:homebox/VendorPart/bottomBar.dart';
-import 'package:homebox/screens/Login.dart';
-import 'package:homebox/screens/vendorList.dart';
+import 'package:homebox/screens/Intro.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScrn extends StatefulWidget {
   @override
-  _SplashScreen createState() => _SplashScreen();
+  _SplashScrnState createState() => _SplashScrnState();
 }
 
-String userID;
-String vendorId;
-
-class _SplashScreen extends State<SplashScreen> {
-  startTime() async {
-    var _duration = Duration(seconds: 2);
-    return Timer(_duration, navigationPage);
-  }
-
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  void navigationPage() async {
-    FirebaseUser user = await _auth.currentUser();
-    if (user != null) {
-      print(user.displayName);
-      if (user.displayName != "vendor") {
-        userID = user.uid;
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => BottomBarVendor()),
-            (_) => false);
-      } else {
-        DocumentSnapshot temp = await Firestore.instance
-            .collection("users")
-            .document(user.uid)
-            .get();
-        vendorId = temp.data["vendor"];
-        userID = user.uid;
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => VendorList()),
-            (_) => false);
-      }
-    } else {
-      Navigator.pushAndRemoveUntil(context,
-          CupertinoPageRoute(builder: (context) => Login()), (route) => false);
-    }
-  }
-
+class _SplashScrnState extends State<SplashScrn> {
   @override
   void initState() {
     super.initState();
-    startTime();
+    Timer(
+      Duration(seconds: 5),
+      () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Intro()),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-            padding: EdgeInsets.only(left: 50, right: 50, bottom: 50),
-            child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/logo/logo1.png'))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Center(
-                      child: SpinKitFadingCube(
-                    color: Colors.black,
-                    size: 25.0,
-                  ))
-                ],
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(color: Colors.white),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset('assets/logo/logo1.png'),
+              SizedBox(
+                height: 5,
               ),
-            )));
+              /*Text(
+                'HomeBox',
+                style: TextStyle(
+                  color: Color(0xff61ce70),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                  shadows: [
+                    Shadow(
+                      // bottomLeft
+                        offset: Offset(-1.0, -1.0),
+                        color: Colors.black),
+                    Shadow(
+                      // bottomRight
+                        offset: Offset(1.0, -1.0),
+                        color: Colors.black),
+                    Shadow(
+                      // topRight
+                        offset: Offset(1.0, 1.0),
+                        color: Colors.black),
+                    Shadow(
+                      // topLeft
+                        offset: Offset(-1.0, 1.0),
+                        color: Colors.black),
+                    Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black54,
+                        offset: Offset.fromDirection(45, 10.0))
+                  ],
+                ),
+              ),*/
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Eat Healthy, Stay Safe',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                  shadows: [
+                    Shadow(
+                        // bottomLeft
+                        offset: Offset(-1.0, -1.0),
+                        color: Color(0xff61ce70)),
+                    Shadow(
+                        // bottomRight
+                        offset: Offset(1.0, -1.0),
+                        color: Color(0xff61ce70)),
+                    Shadow(
+                        // topRight
+                        offset: Offset(1.0, 1.0),
+                        color: Color(0xff61ce70)),
+                    Shadow(
+                        // topLeft
+                        offset: Offset(-1.0, 1.0),
+                        color: Color(0xff61ce70)),
+                    Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black54,
+                        offset: Offset.fromDirection(45, 10.0))
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              SpinKitFadingCube(
+                duration: const Duration(milliseconds: 500),
+                itemBuilder: (BuildContext context, int index) {
+                  return DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: index.isEven ? Colors.black : Color(0xff61ce70),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

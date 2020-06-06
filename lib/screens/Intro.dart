@@ -2,9 +2,7 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:homebox/VendorPart/bottomBar.dart';
 import 'package:homebox/screens/Login.dart';
-import 'package:homebox/screens/bottomNavBar.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
@@ -14,33 +12,7 @@ class Intro extends StatefulWidget {
   _Intro createState() => _Intro();
 }
 
-final auth = FirebaseAuth.instance;
-// final reference = FirebaseDatabase.instance.reference();
-
 class _Intro extends State<Intro> {
-  void check() {
-    auth.currentUser().then((value) {
-      if (value != null) {
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => BottomBar()), (_) => false);
-        if (value.displayName == "vendor") {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomBarVendor()),
-              (_) => false);
-        } else {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomBar()),
-              (_) => false);
-        }
-      } else {
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => Login()), (_) => false);
-      }
-    });
-  }
-
   List<Slide> slides = new List();
   Function goToTab;
   @override
@@ -56,22 +28,22 @@ class _Intro extends State<Intro> {
           fontWeight: FontWeight.bold,
           fontFamily: 'Poppins',
           shadows: [
-            Shadow( // bottomLeft
+            Shadow(
+                // bottomLeft
                 offset: Offset(-1.0, -1.0),
-                color: Colors.black
-            ),
-            Shadow( // bottomRight
+                color: Colors.black),
+            Shadow(
+                // bottomRight
                 offset: Offset(1.0, -1.0),
-                color: Colors.black
-            ),
-            Shadow( // topRight
+                color: Colors.black),
+            Shadow(
+                // topRight
                 offset: Offset(1.0, 1.0),
-                color: Colors.black
-            ),
-            Shadow( // topLeft
+                color: Colors.black),
+            Shadow(
+                // topLeft
                 offset: Offset(-1.0, 1.0),
-                color: Colors.black
-            ),
+                color: Colors.black),
             Shadow(
                 blurRadius: 10.0,
                 color: Colors.black54,
@@ -84,7 +56,32 @@ Now Get your Organic items
 delivered at your doorstep.
 Eat Organic, Stay Healthy.''',
         styleDescription: TextStyle(
-            color: Colors.black, fontSize: 14.0, fontFamily: 'Poppins'),
+          color: Colors.black,
+          fontSize: 14.0,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         pathImage: "assets/images/organic-food.png",
       ),
     );
@@ -93,16 +90,61 @@ Eat Organic, Stay Healthy.''',
       new Slide(
         title: "Order from your Home",
         styleTitle: TextStyle(
-            color: Color(0xff61ce70),
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Color(0xff61ce70),
+          fontSize: 42.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Colors.black),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Colors.black),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Colors.black),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Colors.black),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         description: "Content",
         styleDescription: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+          color: Colors.black,
+          fontSize: 14.0,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         pathImage: "assets/logo/food.png",
       ),
     );
@@ -111,16 +153,61 @@ Eat Organic, Stay Healthy.''',
       new Slide(
         title: "NearBy Vendors",
         styleTitle: TextStyle(
-            color: Color(0xff61ce70),
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Color(0xff61ce70),
+          fontSize: 42.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Colors.black),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Colors.black),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Colors.black),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Colors.black),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         description: "Content",
         styleDescription: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+          color: Colors.black,
+          fontSize: 14.0,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         pathImage: "assets/logo/food.png",
       ),
     );
@@ -129,23 +216,68 @@ Eat Organic, Stay Healthy.''',
       new Slide(
         title: "Delivery at your Doorstep",
         styleTitle: TextStyle(
-            color: Color(0xff61ce70),
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: Color(0xff61ce70),
+          fontSize: 42.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Colors.black),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Colors.black),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Colors.black),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Colors.black),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         description: "Content",
         styleDescription: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+          color: Colors.black,
+          fontSize: 14.0,
+          fontFamily: 'Poppins',
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // bottomRight
+                offset: Offset(1.0, -1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topRight
+                offset: Offset(1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                // topLeft
+                offset: Offset(-1.0, 1.0),
+                color: Color(0xff61ce70)),
+            Shadow(
+                blurRadius: 10.0,
+                color: Colors.black54,
+                offset: Offset.fromDirection(45, 10.0))
+          ],
+        ),
         pathImage: "assets/logo/delivery.png",
       ),
     );
   }
 
   void onDonePress() {
-    check();
+    Login();
   }
 
   void onTabChangeCompleted(index) {
@@ -159,7 +291,7 @@ Eat Organic, Stay Healthy.''',
   Widget renderDoneBtn() {
     return GestureDetector(
         onTap: () {
-          check();
+          Login();
         },
         child: Text("Done"));
   }

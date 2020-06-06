@@ -10,11 +10,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.white,
+        primaryColorDark: Colors.black,
         accentColor: Color(0xff61ce70),
+        fontFamily: 'Poppins',
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
       ),
       darkTheme: ThemeData(
         primaryColor: Colors.black,
+        primaryColorDark: Colors.white,
         accentColor: Color(0xff61ce70),
+        fontFamily: 'Poppins',
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,

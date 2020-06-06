@@ -26,7 +26,7 @@ class Contact extends StatelessWidget {
                 height: 30,
               ),
               ContactUs(
-                cardColor: Theme.of(context).accentColor,
+                cardColor: Theme.of(context).primaryColorDark,
                 companyColor: Theme.of(context).accentColor,
                 taglineColor: Theme.of(context).accentColor,
                 textColor: Theme.of(context).primaryColor,
