@@ -1,18 +1,18 @@
-import 'package:contactus/contactus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homebox/screens/AboutUs.dart';
+import 'package:homebox/screens/Contact.dart';
+import 'package:homebox/screens/MyOrders.dart';
 
-import 'AboutUs.dart';
-import 'AllCategories.dart';
 import 'MyCart.dart';
-import 'MyOrders.dart';
 
-class Contact extends StatefulWidget {
+class AllCatagories extends StatefulWidget {
   @override
-  _ContactState createState() => _ContactState();
+  _AllCatagoriesState createState() => _AllCatagoriesState();
 }
 
-class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
+class _AllCatagoriesState extends State<AllCatagories>
+    with SingleTickerProviderStateMixin {
   bool _iscollapsed = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 500);
@@ -20,7 +20,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
   Animation<double> _scaleAnimation;
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
-  var _isSelected = 3;
+  var _isSelected = 0;
 
   @override
   void initState() {
@@ -271,7 +271,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                         ),
                       ),
                       Text(
-                        'ContactUs',
+                        'HomeBox',
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       InkWell(
@@ -291,16 +291,130 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                   SizedBox(
                     height: 10.0,
                   ),
-                  ContactUs(
-                    logo: AssetImage('assets/logo/logo1.png'),
-                    tagLine: 'Eat Healty, Stay Safe',
-                    taglineColor: Color(0xff61ce70),
-                    companyName: 'HomeBox',
-                    companyColor: Color(0xff61ce70),
-                    website: 'homebox.co.in',
-                    email: 'homebox.technical@gmail.com',
-                    phoneNumber: '+911234567890',
+                  Container(
+                    height: 0.3 * screenHeight,
+                    width: screenWidth,
+                    child: PageView(
+                      controller: PageController(viewportFraction: 0.8),
+                      scrollDirection: Axis.horizontal,
+                      pageSnapping: true,
+                      children: <Widget>[
+                        Container(
+                          width: 0.3 * screenWidth,
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Image.asset('assets/images/p0.jpg'),
+                        ),
+                        Container(
+                          width: 0.3 * screenWidth,
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Image.asset('assets/images/p1.jpg'),
+                        ),
+                        Container(
+                          width: 0.3 * screenWidth,
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Image.asset('assets/images/p2.jpg'),
+                        ),
+                      ],
+                    ),
                   ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    'All Catagories',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  CustomScrollView(
+                    shrinkWrap: true,
+                    primary: false,
+                    slivers: <Widget>[
+                      SliverPadding(
+                        padding: const EdgeInsets.all(20),
+                        sliver: SliverGrid.count(
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          crossAxisCount: 2,
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -310,3 +424,8 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+//body
+/*
+
+ */

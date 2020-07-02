@@ -77,7 +77,7 @@ class _SplashScrnState extends State<SplashScrn> {
                 'Eat Healthy, Stay Safe',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20.0,
+                  fontSize: 22.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
                   shadows: [
@@ -109,6 +109,7 @@ class _SplashScrnState extends State<SplashScrn> {
               ),
               SpinKitFadingCube(
                 duration: const Duration(milliseconds: 500),
+                size: 25.0,
                 itemBuilder: (BuildContext context, int index) {
                   return DecoratedBox(
                     decoration: BoxDecoration(

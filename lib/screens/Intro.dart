@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Login.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
@@ -22,6 +21,8 @@ class _Intro extends State<Intro> {
     slides.add(
       new Slide(
         title: "ORGANICO",
+        marginTitle: EdgeInsets.all(10.0),
+        marginDescription: EdgeInsets.all(10.0),
         styleTitle: TextStyle(
           color: Color(0xff61ce70),
           fontSize: 42.0,
@@ -57,7 +58,7 @@ delivered at your doorstep.
 Eat Organic, Stay Healthy.''',
         styleDescription: TextStyle(
           color: Colors.black,
-          fontSize: 14.0,
+          fontSize: 20.0,
           fontFamily: 'Poppins',
           shadows: [
             Shadow(
@@ -89,6 +90,8 @@ Eat Organic, Stay Healthy.''',
     slides.add(
       new Slide(
         title: "Order from your Home",
+        marginTitle: EdgeInsets.all(10.0),
+        marginDescription: EdgeInsets.all(10.0),
         styleTitle: TextStyle(
           color: Color(0xff61ce70),
           fontSize: 42.0,
@@ -120,7 +123,7 @@ Eat Organic, Stay Healthy.''',
         description: "Content",
         styleDescription: TextStyle(
           color: Colors.black,
-          fontSize: 14.0,
+          fontSize: 20.0,
           fontFamily: 'Poppins',
           shadows: [
             Shadow(
@@ -152,6 +155,8 @@ Eat Organic, Stay Healthy.''',
     slides.add(
       new Slide(
         title: "NearBy Vendors",
+        marginTitle: EdgeInsets.all(10.0),
+        marginDescription: EdgeInsets.all(10.0),
         styleTitle: TextStyle(
           color: Color(0xff61ce70),
           fontSize: 42.0,
@@ -183,7 +188,7 @@ Eat Organic, Stay Healthy.''',
         description: "Content",
         styleDescription: TextStyle(
           color: Colors.black,
-          fontSize: 14.0,
+          fontSize: 20.0,
           fontFamily: 'Poppins',
           shadows: [
             Shadow(
@@ -215,6 +220,8 @@ Eat Organic, Stay Healthy.''',
     slides.add(
       new Slide(
         title: "Delivery at your Doorstep",
+        marginTitle: EdgeInsets.all(10.0),
+        marginDescription: EdgeInsets.all(10.0),
         styleTitle: TextStyle(
           color: Color(0xff61ce70),
           fontSize: 42.0,
@@ -246,7 +253,7 @@ Eat Organic, Stay Healthy.''',
         description: "Content",
         styleDescription: TextStyle(
           color: Colors.black,
-          fontSize: 14.0,
+          fontSize: 20.0,
           fontFamily: 'Poppins',
           shadows: [
             Shadow(
@@ -277,7 +284,10 @@ Eat Organic, Stay Healthy.''',
   }
 
   void onDonePress() {
-    Login();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
   }
 
   void onTabChangeCompleted(index) {
@@ -289,11 +299,10 @@ Eat Organic, Stay Healthy.''',
   }
 
   Widget renderDoneBtn() {
-    return GestureDetector(
-        onTap: () {
-          Login();
-        },
-        child: Text("Done"));
+    return Icon(
+      Icons.done,
+      color: Colors.black,
+    );
   }
 
   Widget renderSkipBtn() {
@@ -311,30 +320,39 @@ Eat Organic, Stay Healthy.''',
           margin: EdgeInsets.only(bottom: 60.0, top: 60.0),
           child: ListView(
             children: <Widget>[
-              GestureDetector(
-                  child: Image.asset(
-                currentSlide.pathImage,
-                width: 200.0,
-                height: 200.0,
-                fit: BoxFit.contain,
-              )),
-              Container(
-                child: Text(
-                  currentSlide.title,
-                  style: currentSlide.styleTitle,
-                  textAlign: TextAlign.center,
-                ),
-                margin: EdgeInsets.only(top: 20.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                    child: Image.asset(
+                  currentSlide.pathImage,
+                  width: 200.0,
+                  height: 200.0,
+                  fit: BoxFit.contain,
+                )),
               ),
-              Container(
-                child: Text(
-                  currentSlide.description,
-                  style: currentSlide.styleDescription,
-                  textAlign: TextAlign.center,
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  child: Text(
+                    currentSlide.title,
+                    style: currentSlide.styleTitle,
+                    textAlign: TextAlign.center,
+                  ),
+                  margin: EdgeInsets.only(top: 20.0),
                 ),
-                margin: EdgeInsets.only(top: 20.0),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  child: Text(
+                    currentSlide.description,
+                    style: currentSlide.styleDescription,
+                    textAlign: TextAlign.center,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  margin: EdgeInsets.only(top: 20.0),
+                ),
               ),
             ],
           ),
