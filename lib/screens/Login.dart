@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homebox/screens/AllCategories.dart';
 
 TextEditingController _phoneController = new TextEditingController();
 TextEditingController _name = new TextEditingController();
@@ -14,170 +15,224 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
-  List<String> _locations = [
-    'Vadodra',
-    'Bhavnagar',
-    'Bharuch',
-    'Ajmer',
-    'Nasirabad'
-  ];
+  List<String> _locations = ['Vadodra', 'Shirpur', 'Nasirabad'];
   String _selectedLocation;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(
-        child: Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
-          body: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              Image(
-                image: AssetImage('assets/images/organic-food.png'),
-                fit: BoxFit.cover,
-                color: Colors.black87,
-                colorBlendMode: BlendMode.darken,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Image(
+              image: AssetImage('assets/images/organic-food.png'),
+              fit: BoxFit.cover,
+              color: Colors.black87,
+              colorBlendMode: BlendMode.darken,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  "\tLogin",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontFamily: 'Poppins',
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                            // bottomLeft
+                            offset: Offset(-1.0, -1.0),
+                            color: Colors.black),
+                        Shadow(
+                            // bottomRight
+                            offset: Offset(1.0, -1.0),
+                            color: Colors.black),
+                        Shadow(
+                            // topRight
+                            offset: Offset(1.0, 1.0),
+                            color: Colors.black),
+                        Shadow(
+                            // topLeft
+                            offset: Offset(-1.0, 1.0),
+                            color: Colors.black),
+                      ]),
+                ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 50),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "\tLogin",
-                    style: TextStyle(
-                        color: Theme.of(context).accentColor,
-                        fontFamily: 'Poppins',
-                        fontSize: 42,
-                        fontWeight: FontWeight.bold,
-                        shadows: [
-                          Shadow(
-                              // bottomLeft
-                              offset: Offset(-1.0, -1.0),
-                              color: Colors.black),
-                          Shadow(
-                              // bottomRight
-                              offset: Offset(1.0, -1.0),
-                              color: Colors.black),
-                          Shadow(
-                              // topRight
-                              offset: Offset(1.0, 1.0),
-                              color: Colors.black),
-                          Shadow(
-                              // topLeft
-                              offset: Offset(-1.0, 1.0),
-                              color: Colors.black),
-                        ]),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 50.0, left: 40.0, right: 40.0, bottom: 100.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Center(
+                        child: Theme(
+                          data: ThemeData(primaryColor: Colors.white),
+                          child: TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            cursorColor: Colors.white,
+                            controller: _name,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              focusColor: Colors.white,
+                              icon: new Icon(
+                                Icons.text_fields,
+                                color: Colors.white,
+                              ),
+                              border: InputBorder.none,
+                              hintText: 'Enter Your Name',
+                              hintStyle: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Center(
+                        child: Theme(
+                          data: ThemeData(
+                            primaryColor: Colors.white,
+                          ),
+                          child: TextField(
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            cursorColor: Colors.white,
+                            maxLength: 10,
+                            keyboardType: TextInputType.number,
+                            controller: _phoneController,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              focusColor: Colors.white,
+                              icon: new Icon(
+                                Icons.format_list_numbered,
+                                color: Colors.white,
+                              ),
+                              border: InputBorder.none,
+                              hintText: 'Enter Your Number',
+                              hintStyle: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: DropdownButton(
+                          dropdownColor: Colors.black,
+                          icon: Icon(
+                            Icons.location_city,
+                            color: Colors.white,
+                          ),
+                          hint: Text(
+                            'Please choose a location',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: TextStyle(
+                              color:
+                                  Colors.white), // Not necessary for Option 1
+                          value: _selectedLocation,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedLocation = newValue;
+                              city = newValue;
+                            });
+                          },
+                          items: _locations.map((location) {
+                            return DropdownMenuItem(
+                              child: new Text(location),
+                              value: location,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 50.0, left: 40.0, right: 40.0, bottom: 100.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Center(
-                      child: TextFormField(
-                        controller: _name,
-                        decoration: InputDecoration(
-                            icon: new Icon(Icons.text_fields),
-                            border: InputBorder.none,
-                            hintText: 'Enter Your Name'),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Center(
-                      child: TextField(
-                        maxLength: 10,
-                        keyboardType: TextInputType.number,
-                        controller: _phoneController,
-                        decoration: InputDecoration(
-                            icon: new Icon(Icons.format_list_numbered),
-                            border: InputBorder.none,
-                            hintText: 'Enter Your Number'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: DropdownButton(
-                        icon: Icon(Icons.location_city),
-                        hint: Text(
-                            'Please choose a location'), // Not necessary for Option 1
-                        value: _selectedLocation,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedLocation = newValue;
-                            city = newValue;
+                SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    if (_phoneController.text.length == 10 ||
+                        _name.text != null && _name.text != "") {
+                      _auth.verifyPhoneNumber(
+                          phoneNumber: "+91" + _phoneController.text,
+                          timeout: Duration(seconds: 60),
+                          verificationCompleted: (authCredential) =>
+                              verificationCompleted(authCredential, context),
+                          verificationFailed: (authException) =>
+                              verificationFailed(authException, context),
+                          codeSent: (verificationId, [code]) =>
+                              smsSent(verificationId, [code], context),
+                          codeAutoRetrievalTimeout: (verificationId) =>
+                              print("Enter OTP manually"));
+                    } else {
+                      showDialog(
+                          context: (context),
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text("One or More options are missing"),
+                              actions: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                )
+                              ],
+                            );
                           });
-                        },
-                        items: _locations.map((location) {
-                          return DropdownMenuItem(
-                            child: new Text(location),
-                            value: location,
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
+                    }
+                  },
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 40, right: 40),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          height: 40,
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          child: Center(
+                              child: Text(
+                            "Submit",
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )))),
                 ),
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  if (_phoneController.text.length == 10 ||
-                      _name.text != null && _name.text != "") {
-                    _auth.verifyPhoneNumber(
-                        phoneNumber: "+91" + _phoneController.text,
-                        timeout: Duration(seconds: 60),
-                        verificationCompleted: (authCredential) =>
-                            verificationCompleted(authCredential, context),
-                        verificationFailed: (authException) =>
-                            verificationFailed(authException, context),
-                        codeSent: (verificationId, [code]) =>
-                            smsSent(verificationId, [code], context),
-                        codeAutoRetrievalTimeout: (verificationId) =>
-                            print("Enter OTP manually"));
-                  } else {
-                    showDialog(
-                        context: (context),
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text("One or More options are missing"),
-                            actions: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("OK"),
-                              )
-                            ],
-                          );
-                        });
-                  }
-                },
-                child: Padding(
-                    padding: EdgeInsets.only(left: 40, right: 40),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        height: 40,
-                        width: MediaQuery.of(context).size.width / 1.5,
-                        child: Center(
-                            child: Text(
-                          "Submit",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )))),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -298,11 +353,11 @@ Widget otpPage(BuildContext context, String verificationId) {
                             "type": "user",
                             "vendor": "",
                           }).whenComplete(() {
-                            /*Navigator.pushAndRemoveUntil(
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => VendorList()),
-                                (route) => false);*/
+                                    builder: (context) => AllCatagories()),
+                                (route) => false);
                           });
                           // Firestore.instance
                           //     .collection("users")
