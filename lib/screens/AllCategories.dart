@@ -113,7 +113,7 @@ class _AllCatagoriesState extends State<AllCatagories>
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => myOrders()));
+                                  builder: (context) => MyOrders()));
                         }
                       });
                     },

@@ -113,7 +113,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => myOrders()));
+                                  builder: (context) => MyOrders()));
                         }
                       });
                     },

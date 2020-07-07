@@ -4,33 +4,101 @@ from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
+from django.core.validators import RegexValidator
+from django.contrib.auth.models import AbstractUser,BaseUserManager
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+# from sendsms.message import SmsMessage
+# from sendsms import api
 
 
-CATEGORY_CHOICES = (
-    # ('S', 'Shirt'),
-    # ('SW', 'Sport wear'),
-    # ('OW', 'Outwear')
-)
+class UserManager(BaseUserManager):
+    """Define a model manager for User model with no username field."""
 
-SUB_CATEGORY_CHOICES = (
-    # ('S', 'Shirt'),
-    # ('SW', 'Sport wear'),
-    # ('OW', 'Outwear')
-)
+    use_in_migrations = True
 
-# ADDRESS_CHOICES = (
-#     ('B', 'Billing'),
-#     ('S', 'Shipping'),
-# )
+    def _create_user(self, mobile, password, **extra_fields):
+        """Create and save a User with the given mobile and password."""
+        if not mobile:
+            raise ValueError('The given mobile must be set')
+        user = self.model(mobile=mobile, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, mobile, password=None, **extra_fields):
+        """Create and save a regular User with the given mobile and password."""
+        # print(mobile)
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(mobile, password, **extra_fields)
+
+    def create_superuser(self, mobile, password, **extra_fields):
+        """Create and save a SuperUser with the given mobile and password."""
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(mobile, password, **extra_fields)
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='user_address')
+class User(AbstractUser):
+
+    username = None
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    mobile = models.CharField(validators=[phone_regex], max_length=15, unique=True) # validators should be a list
+    USERNAME_FIELD = 'mobile'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager() 
+
+    class Meta:
+        ordering = ('id',)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.user.username
+        return self.name
+
+
+class subCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sub_category')
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.category.name} - {self.name}"
+
+
+class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    address_line_1 = models.CharField(max_length=100)
+    address_line_2 = models.CharField(max_length=100)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    country = CountryField(multiple=False)
+    zip = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'Address of {self.user.username}'
+        
+    class Meta:
+        verbose_name_plural = 'Addresses'
+
+
+class userProfile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='user_address', null=True, blank=True)
+
+    def __str__(self):
+        return self.user.mobile
 
 
 class Vendor(models.Model):
@@ -46,11 +114,12 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
-    sub_category = models.CharField(choices=SUB_CATEGORY_CHOICES, max_length=1)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
+    sub_category = models.ForeignKey(subCategory, on_delete=models.CASCADE, related_name='product_sub_category')
     # slug = models.SlugField()
     description = models.TextField()
     image = models.ImageField()
+    vendor = models.ManyToManyField(Vendor)
 
     def __str__(self):
         return self.title
@@ -70,22 +139,6 @@ class Product(models.Model):
     #         'slug': self.slug
     #     })
 
-
-class Address(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    address_line_1 = models.CharField(max_length=100)
-    address_line_2 = models.CharField(max_length=100)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    country = CountryField(multiple=False)
-    zip = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f'Address of {self.user.username}'
-        
-    class Meta:
-        verbose_name_plural = 'Addresses'
 
 
 # class OrderItem(models.Model):
@@ -157,5 +210,10 @@ class Address(models.Model):
 #         return total
 
 
+def userprofile_receiver(sender, instance, created, *args, **kwargs):
+    if created:       
+        # api.send_sms(body='Wow!!', from_phone='+919811766270', to=[instance.mobile])
+        userprofile = userProfile.objects.create(user=instance)
 
 
+post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)

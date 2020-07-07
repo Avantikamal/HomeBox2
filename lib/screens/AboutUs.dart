@@ -112,7 +112,7 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => myOrders()));
+                                  builder: (context) => MyOrders()));
                         }
                       });
                     },

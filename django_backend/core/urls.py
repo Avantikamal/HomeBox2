@@ -1,5 +1,8 @@
 from django.urls import path, include
+from . import views
+
+app_name = 'core'
 
 urlpatterns = [
-    # path('api/', include('core.urls', namespace='core'))
+    path('products/', views.ProductInfoView.as_view())
 ]
