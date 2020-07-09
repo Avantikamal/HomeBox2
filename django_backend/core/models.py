@@ -5,11 +5,23 @@ from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import AbstractUser,BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-# from sendsms.message import SmsMessage
-# from sendsms import api
+from django.db.models import Q
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
+
+class OTP(models.Model):
+    code = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.created_at)
+
+    class Meta:
+        ordering = ('-created_at',)
 
 
 class UserManager(BaseUserManager):
@@ -20,7 +32,7 @@ class UserManager(BaseUserManager):
     def _create_user(self, mobile, password, **extra_fields):
         """Create and save a User with the given mobile and password."""
         if not mobile:
-            raise ValueError('The given mobile must be set')
+            raise ValueError('users must have a mobile number')
         user = self.model(mobile=mobile, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -51,6 +63,7 @@ class User(AbstractUser):
     username = None
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     mobile = models.CharField(validators=[phone_regex], max_length=15, unique=True) # validators should be a list
+    otp = models.ForeignKey(OTP, on_delete=models.CASCADE, related_name='user_otp', null=True)
     USERNAME_FIELD = 'mobile'
     REQUIRED_FIELDS = []
 
