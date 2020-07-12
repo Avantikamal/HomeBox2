@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import *
 from rest_framework.views import APIView
 from .serializers import *
@@ -12,6 +12,7 @@ from rest_framework.status import (
 )
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import json
@@ -19,6 +20,7 @@ import random
 from django.utils import timezone
 from datetime import timedelta
 from rest_framework.authentication import BasicAuthentication,TokenAuthentication
+
 
 @api_view(['POST'])
 def generate_otp(request):
@@ -48,8 +50,10 @@ def verify_otp(request):
                 otp_obj.is_verified = True
                 otp_obj.save()
                 user = User.objects.get(mobile=mobile, otp=otp_obj)
+                # if not user.is_active:
+                #     user.is_active = True
             else:
-                return Response({'success': False, 'message': 'Invalid OTP'})
+                return Response({'success': False, 'message': 'OTP Expired'})
         except User.DoesNotExist:
             return Response({'success': False, 'message': 'Invalid OTP'})
 
@@ -87,3 +91,92 @@ class ProductInfoView(generics.ListAPIView):
             return Response(products_dict, status=HTTP_200_OK)
         except:
             return Response({'status':'fail', 'detail':'Category or Sub Category Incorrect!'}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((permissions.IsAuthenticated,))
+def add_to_cart(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    user_profile = userProfile.objects.get(user=request.user)
+    order_item, created = OrderProduct.objects.get_or_create(
+        product=product,
+        user=user_profile,
+        ordered=False
+    )
+    order_qs = Order.objects.filter(user=user_profile, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.products.filter(product__id=product.id).exists():
+            order_item.quantity += 1
+            order_item.save()
+            return Response({"success":True, "detail":"Product quantity updated"}, status=HTTP_200_OK)
+        else:
+            order.products.add(order_item)
+            return Response({"success":True, "detail":"Product added to cart"}, status=HTTP_200_OK)
+    else:
+        ordered_date = timezone.now()
+        order = Order.objects.create(
+            user=user_profile, ordered_date=ordered_date)
+        order.products.add(order_item)
+        return Response({"success":True, "detail":"Product added to cart"}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((permissions.IsAuthenticated,))
+def remove_from_cart(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    user_profile = userProfile.objects.get(user=request.user)
+    order_qs = Order.objects.filter(
+        user=user_profile,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.products.filter(product__id=product.id).exists():
+            order_item = OrderProduct.objects.filter(
+                product=product,
+                user=user_profile,
+                ordered=False
+            )[0]
+            order.products.remove(order_item)
+            order_item.delete()
+            return Response({"success":True, "detail":"Product removed from cart"}, status=HTTP_200_OK)
+        else:
+            return Response({"success":False, "detail":"Product not in your cart"}, status=HTTP_200_OK)
+    else:
+        return Response({"success":False, "detail":"No active orders"}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["GET"])
+@permission_classes((permissions.IsAuthenticated,))
+def remove_single_item_from_cart(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    user_profile = userProfile.objects.get(user=request.user)
+    order_qs = Order.objects.filter(
+        user=user_profile,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.products.filter(product__id=product.id).exists():
+            order_item = OrderProduct.objects.filter(
+                product=product,
+                user=user_profile,
+                ordered=False
+            )[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.products.remove(order_item)
+            return Response({"success":True, "detail":"Product quantity updated"}, status=HTTP_200_OK)
+        else:
+            return Response({"success":False, "detail":"Product not in cart"}, status=HTTP_200_OK)
+    else:
+        return Response({"success":False, "detail":"No active orders"}, status=HTTP_200_OK)
