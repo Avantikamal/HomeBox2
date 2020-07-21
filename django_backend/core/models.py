@@ -122,15 +122,23 @@ class Vendor(models.Model):
         return self.name
 
 
+class PriceSize(models.Model):
+    price = models.FloatField()
+    size = models.CharField(max_length=25, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.price} {self.size}"
+
+
 class Product(models.Model):
     title = models.CharField(max_length=100)
-    price = models.FloatField()
-    discount_price = models.FloatField(blank=True, null=True)
+    price = models.ManyToManyField(PriceSize, related_name="mrp_size")
+    discount_price = models.ManyToManyField(PriceSize, blank=True, related_name="discount_size")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
-    sub_category = models.ForeignKey(subCategory, on_delete=models.CASCADE, related_name='product_sub_category')
-    description = models.TextField()
-    image = models.ImageField()
-    vendor = models.ManyToManyField(Vendor)
+    sub_category = models.ForeignKey(subCategory, on_delete=models.CASCADE, related_name='product_sub_category', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
+    vendor = models.ManyToManyField(Vendor, blank=True)
 
     def __str__(self):
         return self.title

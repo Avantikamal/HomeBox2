@@ -69,19 +69,28 @@ class CustomTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
 
 
+class PriceSizeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PriceSize
+        fields = "__all__"
+
+
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()
-    sub_category_name = serializers.SerializerMethodField()
+    # sub_category_name = serializers.SerializerMethodField()
+    price = PriceSizeSerializer(many=True)
+    discount_price = PriceSizeSerializer(many=True)
 
     class Meta:
         model = Product
-        fields = ('title','price','discount_price','category_name','sub_category_name','description','image')
+        fields = ('id', 'title', 'price', 'discount_price', 'category_name', 'description', 'image')
 
     def get_category_name(self, obj):
         return obj.category.name
 
-    def get_sub_category_name(self, obj):
-        return obj.sub_category.name
+    # def get_sub_category_name(self, obj):
+    #     return obj.sub_category.name
 
 
 class ProductQuerySerializer(serializers.ModelSerializer):

@@ -72,25 +72,14 @@ class LogoutView(APIView):
         return Response({'details':'Logout successful'}, status=HTTP_200_OK)
 
 
-class ProductInfoView(generics.ListAPIView):
-    # PERMISSION_CLASSES = ('AllowAny',)
-    serializer_class = ProductQuerySerializer
-    queryset = Product.objects.all()
+class ProductList(generics.ListAPIView):
+    serializer_class = ProductSerializer
 
-    def post(self, request, *args, **kwargs):
-        try:
-            category_name = request.data['category']
-            sub_category_name = request.data['sub_category']
-            category_obj = Category.objects.get(id=category_name)
-            sub_category_obj = subCategory.objects.get(id=sub_category_name)
-            products = Product.objects.filter(category=category_obj, sub_category=sub_category_obj)
-            products_dict = {}
-            for i in range(len(products)):
-                product_serializer = ProductSerializer(products[i])
-                products_dict[i+1] = product_serializer.data
-            return Response(products_dict, status=HTTP_200_OK)
-        except:
-            return Response({'status':'fail', 'detail':'Category or Sub Category Incorrect!'}, status=HTTP_200_OK)
+    def get_queryset(self):
+        category = self.request.query_params.get('category')
+        category_obj = Category.objects.get(name=category)
+        queryset = Product.objects.filter(category=category_obj)
+        return queryset
 
 
 @csrf_exempt
