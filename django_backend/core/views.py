@@ -69,7 +69,7 @@ class LogoutView(APIView):
 
     def get(self, request, format=None):
         request.user.auth_token.delete()
-        return Response({'details':'Logout successful'}, status=HTTP_200_OK)
+        return Response({'success':True, 'details':'Logout successful'}, status=HTTP_200_OK)
 
 
 class ProductList(generics.ListAPIView):

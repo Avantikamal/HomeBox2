@@ -132,7 +132,7 @@ class PriceSize(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=100)
-    price = models.ManyToManyField(PriceSize, related_name="mrp_size")
+    price = models.ManyToManyField(PriceSize, related_name="mrp_size", blank=True)
     discount_price = models.ManyToManyField(PriceSize, blank=True, related_name="discount_size")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
     sub_category = models.ForeignKey(subCategory, on_delete=models.CASCADE, related_name='product_sub_category', blank=True, null=True)
