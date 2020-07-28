@@ -58,17 +58,17 @@ class Products{
     // Prints the JSON object of the products with the specified category
     var jsonData = jsonDecode(response.body);
 
-    jsondata.forEach(element){
+    jsondata.forEach((element){
       Product product = Product(
         title: element['title'],
         categoryName: element['category_name'],
         List<Price> prices = [];
-        element['price'].forEach(ele){
+        element['price'].forEach((ele){
           Price price = Price(
             price: ele['price'],
             size: ele['size']);
           prices.add(price);
-        }
+        });
         price: prices);
     products.add(product);
     });
