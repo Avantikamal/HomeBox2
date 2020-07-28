@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:HomeBox2/models/products.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -45,14 +46,33 @@ Future<String> logout(var _token) async {
   }
 }
 
-Future<String> getProducts(var token, String _category) async {
-// token variable has not taken into consideration for now
-// Gets the raw data fron back end API
-  http.Response response = await http.get(Uri.encodeFull(
-      "http://homebox-backend.herokuapp.com/api/products/?category=$_category"));
-  // Prints the JSON object of the products with the specified category
-  print(response.body);
-  return (response.body);
+
+class Products{
+  List<Product> products = [];
+
+  Future<void> getProducts(String _category) async {
+  // token variable has not taken into consideration for now
+  // Gets the raw data fron back end API
+    http.Response response = await http.get(Uri.encodeFull(
+        "http://homebox-backend.herokuapp.com/api/products/?category=$_category"));
+    // Prints the JSON object of the products with the specified category
+    var jsonData = jsonDecode(response.body);
+
+    jsondata.forEach(element){
+      Product product = Product(
+        title: element['title'],
+        categoryName: element['category_name'],
+        List<Price> prices = [];
+        element['price'].forEach(ele){
+          Price price = Price(
+            price: ele['price'],
+            size: ele['size']);
+          prices.add(price);
+        }
+        price: prices);
+    products.add(product);
+    });
+  }
 }
 
 void main() {
