@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:homebox/screens/AllCategories.dart';
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/Login.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
@@ -286,7 +286,7 @@ Eat Organic, Stay Healthy.''',
   void onDonePress() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Login()),
+      MaterialPageRoute(builder: (context) => AllCatagories()),
     );
   }
 

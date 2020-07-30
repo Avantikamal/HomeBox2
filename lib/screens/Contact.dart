@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'AboutUs.dart';
 import 'AllCategories.dart';
 import 'MyCart.dart';
-import 'MyOrders.dart';
+import 'Checkout.dart';
 
 class Contact extends StatefulWidget {
   @override
@@ -113,7 +113,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => myOrders()));
+                                  builder: (context) => Checkout()));
                         }
                       });
                     },
@@ -279,7 +279,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => myCart()));
+                                  builder: (context) => MyCart()));
                         },
                         child: Icon(
                           Icons.shopping_cart,

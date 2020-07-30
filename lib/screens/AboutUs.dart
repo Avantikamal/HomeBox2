@@ -4,7 +4,7 @@ import 'package:timeline_tile/timeline_tile.dart';
 import 'AllCategories.dart';
 import 'Contact.dart';
 import 'MyCart.dart';
-import 'MyOrders.dart';
+import 'Checkout.dart';
 
 class aboutUs extends StatefulWidget {
   @override
@@ -49,7 +49,7 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
           backgroundColor: Theme.of(context).accentColor,
           body: Stack(
             children: <Widget>[
-              menu(context),
+            //  menu(context),
               dashboard(context),
             ],
           ),
@@ -112,7 +112,7 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => myOrders()));
+                                  builder: (context) => Checkout()));
                         }
                       });
                     },
@@ -250,41 +250,42 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            if (_iscollapsed)
-                              _controller.forward();
-                            else
-                              _controller.reverse();
 
-                            _iscollapsed = !_iscollapsed;
-                          });
-                        },
-                        child: Icon(
-                          Icons.menu,
-                          color: Theme.of(context).primaryColorDark,
+                    children: <Widget>[
+//                      InkWell(
+//                        onTap: () {
+//                          setState(() {
+//                            if (_iscollapsed)
+//                              _controller.forward();
+//                            else
+//                              _controller.reverse();
+//
+//                            _iscollapsed = !_iscollapsed;
+//                          });
+//                        },
+//                        child: Icon(
+//                          Icons.menu,
+//                          color: Theme.of(context).primaryColorDark,
+//                        ),
+//                      ),
+                      Center(
+                        child: Text(
+                          'About Us',
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
-                      Text(
-                        'About Us',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => myCart()));
-                        },
-                        child: Icon(
-                          Icons.shopping_cart,
-                          color: Theme.of(context).primaryColorDark,
-                        ),
-                      ),
+//                      InkWell(
+//                        onTap: () {
+//                          Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  builder: (context) => MyCart()));
+//                        },
+//                        child: Icon(
+//                          Icons.shopping_cart,
+//                          color: Theme.of(context).primaryColorDark,
+//                        ),
+//                      ),
                     ],
                   ),
                   SizedBox(
@@ -317,7 +318,7 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
                   Text(
                     '''
 We a bunch of four students from Narsee Monjee Institute of Mangemnt Industries found a need of online grocery system and delivery of Organic fruits and vegetables in India.
-We then decided to make one which will provides all home essential items and grocery items and organic essentials at the doorstep of the customer with easy return and free delivery within minimum span of time.
+We then decided to make one which will provide all home essential items, grocery items and organic essentials at the doorstep of the customer with easy return and free delivery within minimum span of time.
 ''',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),

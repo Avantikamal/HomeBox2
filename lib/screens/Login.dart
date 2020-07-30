@@ -22,6 +22,7 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          resizeToAvoidBottomInset : false,
         backgroundColor: Theme.of(context).primaryColor,
         body: Stack(
           fit: StackFit.expand,
