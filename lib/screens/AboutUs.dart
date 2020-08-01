@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:homebox/screens/dashboard.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-import 'AllCategories.dart';
+
 import 'Contact.dart';
-import 'MyCart.dart';
+
 import 'Checkout.dart';
 
 class aboutUs extends StatefulWidget {
@@ -81,7 +82,7 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AllCatagories()));
+                                  builder: (context) => Dashboard()));
                         }
                       });
                     },
@@ -204,7 +205,7 @@ class _aboutUsState extends State<aboutUs> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AllCatagories()));
+                                  builder: (context) => Dashboard()));
                         }
                       });
                     },

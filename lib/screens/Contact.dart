@@ -1,9 +1,10 @@
 import 'package:contactus/contactus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homebox/screens/dashboard.dart';
 
 import 'AboutUs.dart';
-import 'AllCategories.dart';
+
 import 'MyCart.dart';
 import 'Checkout.dart';
 
@@ -82,7 +83,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AllCatagories()));
+                                  builder: (context) => Dashboard()));
                         }
                       });
                     },
@@ -205,7 +206,7 @@ class _ContactState extends State<Contact> with SingleTickerProviderStateMixin {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AllCatagories()));
+                                  builder: (context) => Dashboard()));
                         }
                       });
                     },

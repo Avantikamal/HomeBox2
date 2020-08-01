@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/models/category.dart';
-import 'package:homebox/screens/new_subcategory.dart';
+
 class New_Category extends StatefulWidget {
   @override
   _New_CategoryState createState() => _New_CategoryState();

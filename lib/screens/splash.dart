@@ -130,15 +130,9 @@
                               //alternate code
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:async';
-import 'package:homebox/screens/AllCategories.dart';
-import 'package:homebox/screens/Login_screen.dart';
 import 'package:homebox/screens/onboarding_screen.dart';
-import 'login.dart';
-import 'package:homebox/screens/Intro.dart';
-import 'package:homebox/HomePage.dart';
-import 'package:homebox/screens/intro_page.dart';
+
 
 class Splash_screen extends StatefulWidget {
   @override

@@ -5,7 +5,7 @@ import 'Checkout.dart';
 import 'package:homebox/screens/product_details.dart';
 import 'package:homebox/screens/cart_items.dart';
 import 'package:homebox/screens/cart_product.dart';
-
+                                                          //hard coded
 class MyCart extends StatefulWidget {
   @override
   _MyCartState createState() => _MyCartState();

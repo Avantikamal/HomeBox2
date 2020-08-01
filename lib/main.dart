@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:homebox/screens/AllCategories.dart';
-import 'package:homebox/screens/Login.dart';
+import 'package:homebox/screens/Login_screen.dart';
+import 'package:homebox/screens/dashboard.dart';
 import 'screens/splash.dart';
-import 'screens/Login.dart';
+
 void main() => runApp(MyApp());
 
 // ignore: must_be_immutable
@@ -178,8 +178,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home:  Splash_screen(),
       routes: <String, WidgetBuilder>{
-        '/HomeScreen': (BuildContext context) => AllCatagories(),
-        '/Login': (BuildContext context) => Login()
+        '/HomeScreen': (BuildContext context) => Dashboard(),
+        '/Login': (BuildContext context) => LoginScreen()
       },
     );
   }

@@ -6,7 +6,7 @@ import 'package:homebox/models/order.dart';
 
 import 'address.dart';
 
-class Checkout extends StatefulWidget {
+class Checkout extends StatefulWidget {                                 //hard coded
 
   @override
   _CheckoutState createState() => _CheckoutState();
