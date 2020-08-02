@@ -2,26 +2,26 @@ import 'dart:async';
 import 'package:homebox/Widgets/search_bar.dart';
 import 'package:homebox/screens/MyCart.dart';
 import 'package:homebox/screens/Orders.dart';
-import 'package:homebox/screens/add_location.dart';
 import 'package:flutter/material.dart';
 
-import 'package:homebox/screens/categories.dart';
 import 'package:homebox/screens/product_details.dart';
 import 'package:homebox/screens/profile.dart';
 import 'package:homebox/screens/refer_earn.dart';
 import 'package:homebox/screens/subCategory.dart';
 import 'package:homebox/screens/AboutUs.dart';
 class Dashboard extends StatefulWidget {
-final  String city;
-  Dashboard({this.city});
+  String auth_token;
+  final String city;
+  Dashboard({this.city, this.auth_token});
 
   @override
-  _DashboardState createState() => _DashboardState(this.city);
+  _DashboardState createState() => _DashboardState(this.city,auth_token);
 }
 
 class _DashboardState extends State<Dashboard> {
-String city;
-_DashboardState(this.city);
+  String city;
+  String auth_token;
+  _DashboardState(this.city, this.auth_token);
   int _currentPage = 0;
   PageController _pageController = PageController(
     initialPage: 0,
@@ -325,10 +325,10 @@ String city1= "";
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     InkWell(
-                    onTap: ()=> Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Categories())),
+//                    onTap: ()=> Navigator.push(
+//        context,
+//        MaterialPageRoute(
+//            builder: (context) => Categories())),
     child: Column(
     children: <Widget>[
     Container(
@@ -349,10 +349,10 @@ String city1= "";
                     ),
                     //SizedBox(width: 7.0,),
                     InkWell(
-                      onTap: ()=> Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Categories())),
+//                      onTap: ()=> Navigator.push(
+//                          context,
+//                          MaterialPageRoute(
+//                              builder: (context) => Categories())),
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -372,10 +372,10 @@ String city1= "";
                       ),
                     ),
                     InkWell(
-                      onTap: ()=> Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Categories())),
+//                      onTap: ()=> Navigator.push(
+//                          context,
+//                          MaterialPageRoute(
+//                              builder: (context) => Categories())),
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -448,7 +448,7 @@ String city1= "";
 //              ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0,top: 19.0),
-                child: Text('Popular Menu',style: TextStyle(
+                child: Text('Top Deals',style: TextStyle(
                   color: Colors.red,
                   fontSize: 18.0
                 ),
@@ -805,14 +805,6 @@ child: Padding(
                     ),),
                   ),
                   SizedBox(height: 2.0,),
-//                  Row(
-//                    children: <Widget>[
-//                      Icon(Icons.location_on,color: Colors.white,),
-//                      Text('New York City...',style: TextStyle(
-//                          fontWeight: FontWeight.w300,color: Colors.white
-//                      ),),
-//                    ],
-//                  ),
                 ],
               ),
             ],
@@ -820,10 +812,7 @@ child: Padding(
 
               ),
 
-//ListTile(
-//  leading: Icon(Icons.location_on) ,
-//  title: Text('My Addresses'),
-//),
+
             InkWell(
               onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Orders())),
               child: ListTile(

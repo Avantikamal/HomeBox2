@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:homebox/screens/dashboard.dart';
+import 'package:homebox/integration/Integration.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 import 'package:homebox/screens/otp_screen.dart';
-import 'package:homebox/screens/categories.dart';
+
 import 'package:sms_autofill/sms_autofill.dart';
 
 String phoneNumber;
@@ -172,16 +173,7 @@ class _LoginScreenState extends State<LoginScreen>
       child: SingleChildScrollView(
         child: new Column(
           children: <Widget>[
-//          Container(
-//            padding: EdgeInsets.all(120.0),
-//            child: Center(
-//              child: Icon(
-//                Icons.headset_mic,
-//                color: Colors.redAccent,
-//                size: 50.0,
-//              ),
-//            ),
-//          ),
+
           Container(
             padding: EdgeInsets.only(top:100.0),
             child: Text('Welcome Back',
@@ -735,10 +727,9 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       color: Colors.redAccent,
                       onPressed: ()async {
-                        final signCode = await SmsAutoFill().getAppSignature;
-                        print(signCode);
+                        await  Otpservice().otpGenerate("+91"+phoneNumber);//genrerate otp
                         Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => Otp(),
+                          builder: (context) => Otp(phoneNumber: "+91"+phoneNumber),
                         ));
                       },
                       child: new Container(
@@ -954,6 +945,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       body: Container(
           height: MediaQuery.of(context).size.height,
 //      child: new GestureDetector(
